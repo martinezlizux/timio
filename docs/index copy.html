@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Timio - Tracker de Horas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE0p1ylrh2V9C+8abtTE1Pi6jizoUksdQRVOfl8mZB1zI2K0A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Tailwind CDN kept to preserve utility classes alongside Bootstrap -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" crossorigin src="./assets/index-C9en2bH6.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-mn_Qu7rv.css">
+  </head>
+  <body>
+    <div id="app" class="min-vh-100 timio-app p-3 p-md-4" style="background: var(--timio-bg);">
+      <div class="container-lg wrapper-ui">
+        <header class="d-flex justify-content-between align-items-center mb-4">
+          <div class="d-flex align-items-center gap-3">
+            <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold" style="width:48px;height:48px;background: var(--timio-primary);">T</div>
+            <div>
+              <h1 class="h4 mb-0" style="color: var(--timio-primary);">Timio</h1>
+              <small class="text-muted">Tracker de horas</small>
+            </div>
+          </div>
+          <div class="d-flex gap-2">
+            <button id="btn-login" class="btn btn-link-system btn-sm">Login</button>
+          </div>
+        </header>
+        <section id="s-hero" class="row align-items-center gy-4 mb-4">
+          <div class="col-lg-7">
+            <span class="hero-pill">Nuevo</span>
+            <h1 class="hero-title">Controla tus horas trabajadas con Timio</h1>
+            <p class="hero-description">Registra, exporta y analiza tus proyectos en un solo lugar. Visualiza tus totales y obtén insights al instante.</p>
+          </div>
+          <div class="col-lg-5 text-center">
+          
+            <img src="./assets/timio1-SYfQ9P7M.svg" alt="Ilustración de persona sosteniendo un reloj" class="hero-illustration">
+          </div>
+        </section>
+
+        <section id="s-resumen" class="row g-3 mb-4 ">
+          <div class="col-md-4">
+            <div class="hero-stat-card">
+              <div class="hero-stat-label">Total de horas</div>
+              <div id="stat-hours" class="hero-stat-value">0h</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="hero-stat-card">
+              <div class="hero-stat-label">Total facturado</div>
+              <div id="stat-earnings" class="hero-stat-value">$0.00</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="hero-stat-card">
+              <div class="hero-stat-label">Total de entradas</div>
+              <div id="stat-count" class="hero-stat-value">0</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="s-entradas" class="g-3 mb-4 box-section bg-gray-subtle">
+          <div id="s-filtros" class="row g-3 mb-4">
+            <div class="d-flex flex-wrap align-items-center gap-2">
+              <div class="dropdown filter-dropdown">
+                <i class="fa-solid fa-filter"></i>
+                <button id="filter-time-toggle" class="btn btn-link-system btn-sm dropdown-toggle" type="button" aria-expanded="false">
+                  Tiempo: <span id="filter-time-label">Todos</span>
+                </button>
+                <div class="dropdown-menu shadow-sm p-3" id="filter-time-menu"></div>
+              </div>
+              <div class="dropdown filter-dropdown">
+                <button id="filter-client-toggle" class="btn btn-link-system btn-sm dropdown-toggle" type="button" aria-expanded="false">
+                  Cliente: <span id="filter-client-label">Todos</span>
+                </button>
+                <div class="dropdown-menu shadow-sm p-3" id="filter-client-menu" style="min-width:240px;"></div>
+              </div>
+            </div>
+            <!-- <div id="s-filtros-aplicados" class="d-flex flex-wrap gap-2 d-none">
+            </div> -->
+          </div>
+
+          <div id="s-tabla" class=" mb-4">
+            <div class="table-responsive">
+              <table class="table table-timio mb-0">
+                <thead>
+                  <tr>
+                    <th>Cliente</th>
+                    <th>Descripción</th>
+                    <th>Fecha</th>
+                    <th class="text-end">Horas</th>
+                    <th class="text-end">Tarifa</th>
+                    <th class="text-end">Total</th>
+                    <th class="text-end">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="entries-body"></tbody>
+                <tfoot id="entries-foot"></tfoot>
+              </table>
+            </div>
+          </div>
+
+          <div id="s-controles" class="row g-3 mb-4">
+            <div class="d-flex flex-wrap gap-2 mb-3 justify-content-between align-items-center">
+              <div class="d-flex flex-wrap gap-2">
+                <button id="btn-new" class="btn btn-primary btn-sm"> <i class="fa-solid fa-plus"></i> Nueva entrada</button>
+                <label class="btn btn-link-primary btn-sm">
+                  Importar datos
+                  <input id="file-upload" type="file" accept=".csv,.xlsx" hidden />
+                </label>
+              </div>
+              <div class="d-flex gap-2 align-items-center ms-auto">
+                <button id="btn-copy" class="btn btn-link-primary btn-sm" title="Copiar tabla">
+                  <i class="fa-solid fa-copy"></i> Copiar
+                </button>
+                <button id="btn-export-csv" class="btn btn-link-primary btn-sm" title="Exportar CSV">
+                  <i class="fa-solid fa-file-export"></i> Exportar
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="s-graficas" class="row g-4 mb-5">
+          <div class="col-lg-6">
+            <div class="card-soft bg-purple-subtle text-on-primary h-100">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h5 class="mb-0" style="color: var(--timio-primary);">Distribución por cliente</h5>
+                <small class="text-muted">Ingresos</small>
+              </div>
+              <div id="pie-chart" class="d-flex justify-content-center align-items-center" style="min-height:240px;"></div>
+              <div id="pie-legend" class="mt-3 small"></div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card-soft bg-purple-subtle text-on-primary h-100">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h5 class="mb-0" style="color: var(--timio-primary);">Insights AI</h5>
+                <button id="btn-analyze" class="btn btn-success btn-sm"><i class="fa-solid fa-wand-magic-sparkles"> </i>Analizar con AI</button>
+              </div>
+              <div id="ai-output" class="text-muted small">Sin análisis. Haz clic en "Analizar con AI".</div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <div id="entry-modal" class="modal fade" style="display:none;" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 id="modal-title" class="modal-title">Nueva entrada</h5>
+            <button type="button" class="btn-close" id="modal-close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="entry-form" class="row g-3">
+              <div class="col-12">
+                <label class="form-label">Cliente</label>
+                <input id="form-client" type="text" class="form-control" required />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Fecha</label>
+                <input id="form-date" type="date" class="form-control" required />
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Horas</label>
+                <input id="form-hours" type="number" step="0.1" min="0" class="form-control" required />
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Tarifa/Hora</label>
+                <input id="form-rate" type="number" step="1" min="0" class="form-control" required />
+              </div>
+              <div class="col-12">
+                <label class="form-label">Descripción</label>
+                <textarea id="form-description" class="form-control" rows="2"></textarea>
+              </div>
+              <div class="col-12 text-end">
+                <button type="button" class="btn btn-link text-muted me-2" id="modal-cancel">Cancelar</button>
+                <button type="submit" class="btn btn-primary" id="modal-submit">Guardar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
