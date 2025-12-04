@@ -43,6 +43,7 @@ body {
 .table-timio {
   --bs-table-bg: var(--color-bg-surface-ghost, #ffffff);
   border-collapse: collapse;
+  font-size: 14px;
 }
 
 .table-timio thead th {
