@@ -37,18 +37,6 @@ $orange-scale: (
   900: #180D01
 );
 
-$emerald-scale: (
-  100: #EBF9F8,
-  200: #C3EEEB,
-  300: #9CE3DE,
-  400: #75D8D1,
-  500: #4ECDC4,
-  600: #3C9E97,
-  700: #2A706B,
-  800: #18423F,
-  900: #061413
-);
-
 $gray-scale: (
   00: #FFFFFF,
   100: #F1F2F4,
@@ -67,7 +55,6 @@ $bg-scales: (
   "primary": $purple-scale,
   "secondary": $green-scale,
   "tertiary": $orange-scale,
-  "emerald": $emerald-scale,
   "neutral": $gray-scale
 );
 
@@ -84,6 +71,7 @@ $text-tokens: (
   "green-base":   map-get($green-scale, 500),
   "green-dark":   map-get($green-scale, 700),
   "green-darker": map-get($green-scale, 900),
+  
 
   "orange-subtle": map-get($orange-scale, 100),
   "orange-light":  map-get($orange-scale, 300),
@@ -91,12 +79,7 @@ $text-tokens: (
   "orange-dark":   map-get($orange-scale, 700),
   "orange-darker": map-get($orange-scale, 900),
 
-  "emerald-subtle": map-get($emerald-scale, 100),
-  "emerald-light":  map-get($emerald-scale, 300),
-  "emerald-base":   map-get($emerald-scale, 500),
-  "emerald-dark":   map-get($emerald-scale, 700),
-  "emerald-darker": map-get($emerald-scale, 900),
-
+  "gray-0": map-get($gray-scale, 00 ),
   "gray-subtle": map-get($gray-scale, 100),
   "gray-light":  map-get($gray-scale, 300),
   "gray-base":   map-get($gray-scale, 500),
