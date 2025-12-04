@@ -324,7 +324,24 @@ const renderTable = () => {
   if (!tbody || !tfoot) return;
 
   if (!filtered.length) {
-    tbody.innerHTML = `<tr><td colspan="7" class="text-center text-muted py-4">No hay registros</td></tr>`;
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7" class="text-center py-4">
+          <div class="empty-placeholder mx-auto">
+            <svg width="200" height="200" viewBox="0 0 200 200" role="img" aria-label="Sin registros">
+              <rect x="24" y="36" width="152" height="112" rx="12" fill="#F7F5FC" stroke="#C7B8F4" stroke-width="3" />
+              <rect x="40" y="56" width="72" height="12" rx="6" fill="#C7B8F4" opacity="0.8" />
+              <rect x="40" y="78" width="104" height="12" rx="6" fill="#D4F26A" opacity="0.5" />
+              <rect x="40" y="100" width="88" height="12" rx="6" fill="#F28C24" opacity="0.4" />
+              <rect x="40" y="122" width="48" height="12" rx="6" fill="#4ECDC4" opacity="0.5" />
+              <circle cx="158" cy="150" r="18" fill="#F1EEF6" stroke="#C7B8F4" stroke-width="3" />
+              <path d="M152 150l8 8 12-16" stroke="#6F5ACF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+            <div class="fw-semibold">No tienes ninguna hora registrada</div>
+          </div>
+        </td>
+      </tr>
+    `;
   } else {
     tbody.innerHTML = filtered.map(e => `
       <tr>
@@ -447,6 +464,9 @@ const bindGlobalActions = () => {
 
   const btnCsv = document.getElementById('btn-export-csv');
   if (btnCsv) btnCsv.onclick = handleExportCSV;
+
+  const btnCopy = document.getElementById('btn-copy');
+  if (btnCopy) btnCopy.onclick = () => { handleCopyTable().then(() => showToast('Tabla copiada', 'success')); };
 
   const btnPdf = document.getElementById('btn-export-pdf');
   if (btnPdf) btnPdf.onclick = handleExportPDF;
@@ -579,6 +599,94 @@ const handleExportCSV = () => {
   link.href = URL.createObjectURL(blob);
   link.download = `timio_export_${new Date().toISOString().split('T')[0]}.csv`;
   link.click();
+};
+
+const handleCopyTable = async () => {
+  const { filtered, stats } = getFilteredEntries();
+  const headers = ['Cliente', 'Descripción', 'Fecha', 'Horas', 'Tarifa/Hora', 'Total'];
+  const rows = filtered.map(e => [
+    escapeHtml(e.client),
+    escapeHtml(e.description),
+    escapeHtml(e.date),
+    String(e.hours),
+    String(e.rate),
+    (e.hours * e.rate).toFixed(2)
+  ]);
+
+  const totalsRow = [
+    'Totales',
+    '',
+    '',
+    stats.totalHours.toFixed(2),
+    '',
+    stats.totalEarnings.toFixed(2)
+  ];
+
+  const tsv = [headers, ...rows, totalsRow].map(cols => cols.join('\t')).join('\n');
+
+  const htmlTable = `
+    <table style="border-collapse:collapse;min-width:600px;">
+      <thead>
+        <tr>
+          ${headers.map(h => `<th style="border:1px solid #ddd;padding:6px 8px;background:#f7f5fc;font-weight:700;text-align:left;">${h}</th>`).join('')}
+        </tr>
+      </thead>
+      <tbody>
+        ${rows.map(row => `
+          <tr>
+            ${row.map((cell, idx) => {
+              const align = idx >= 3 ? 'right' : 'left';
+              return `<td style="border:1px solid #eee;padding:6px 8px;text-align:${align};">${cell}</td>`;
+            }).join('')}
+          </tr>
+        `).join('')}
+      </tbody>
+      <tfoot>
+        <tr>
+          ${totalsRow.map((cell, idx) => {
+            const align = idx >= 3 ? 'right' : 'left';
+            const weight = idx === 0 ? '700' : '600';
+            return `<td style="border:1px solid #ddd;padding:6px 8px;text-align:${align};font-weight:${weight};background:#fafafa;">${cell}</td>`;
+          }).join('')}
+        </tr>
+      </tfoot>
+    </table>
+  `;
+
+  try {
+    if (navigator.clipboard?.write) {
+      const item = new ClipboardItem({
+        'text/html': new Blob([htmlTable], { type: 'text/html' }),
+        'text/plain': new Blob([tsv], { type: 'text/plain' })
+      });
+      await navigator.clipboard.write([item]);
+      return;
+    }
+  } catch (err) {
+    console.warn('Clipboard HTML write failed, falling back to text', err);
+  }
+
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(tsv);
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = tsv;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+};
+
+const showToast = (message: string, type: 'success' | 'default' = 'default') => {
+  const existing = document.getElementById('toast-inline');
+  if (existing) existing.remove();
+  const div = document.createElement('div');
+  div.id = 'toast-inline';
+  div.className = `toast-inline ${type === 'success' ? 'toast-inline--success' : ''}`;
+  div.textContent = message;
+  document.body.appendChild(div);
+  setTimeout(() => div.remove(), 2500);
 };
 
 const handleExportPDF = () => {

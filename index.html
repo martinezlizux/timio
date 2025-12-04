@@ -27,23 +27,35 @@
           </div>
         </header>
 
-        <section id="s-resumen" class="row g-3 mb-4">
+        <section id="s-hero" class="row align-items-center gy-4 mb-4">
+          <div class="col-lg-7">
+            <span class="hero-pill">Nuevo</span>
+            <h1 class="hero-title">Controla tus horas trabajadas con Timio</h1>
+            <p class="hero-description">Registra, exporta y analiza tus proyectos en un solo lugar. Visualiza tus totales y obtén insights al instante.</p>
+          </div>
+          <div class="col-lg-5 text-center">
+          
+            <img src="assets/timio1.svg" alt="Ilustración de persona sosteniendo un reloj" class="hero-illustration">
+          </div>
+        </section>
+
+        <section id="s-resumen" class="row g-3 mb-4 ">
           <div class="col-md-4">
-            <div class="card-soft bg-purple-subtle text-on-primary">
-              <div class="text-muted text-uppercase small">Total horas</div>
-              <div id="stat-hours" class="fs-3 fw-bold" style="color: var(--timio-primary);">0h</div>
+            <div class="hero-stat-card">
+              <div class="hero-stat-label">Total de horas</div>
+              <div id="stat-hours" class="hero-stat-value">0h</div>
             </div>
           </div>
           <div class="col-md-4">
-            <div class="card-soft bg-purple-subtle text-on-primary">
-              <div class="text-muted text-uppercase small">Total facturado</div>
-              <div id="stat-earnings" class="fs-3 fw-bold" style="color: var(--timio-primary);">$0.00</div>
+            <div class="hero-stat-card">
+              <div class="hero-stat-label">Total facturado</div>
+              <div id="stat-earnings" class="hero-stat-value">$0.00</div>
             </div>
           </div>
           <div class="col-md-4">
-            <div class="card-soft bg-purple-subtle text-on-primary">
-              <div class="text-muted text-uppercase small">Registros</div>
-              <div id="stat-count" class="fs-3 fw-bold" style="color: var(--timio-primary);">0</div>
+            <div class="hero-stat-card">
+              <div class="hero-stat-label">Total de entradas</div>
+              <div id="stat-count" class="hero-stat-value">0</div>
             </div>
           </div>
         </section>
