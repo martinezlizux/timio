@@ -8275,3 +8275,821 @@ More info and automated migrator: https://sass-lang.com/d/import
       at _wrapJsFunctionForAsync_closure.call$2 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:38319:12)
       at Object._asyncStartSync (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:4948:20)
       at _EvaluateVisitor2._addExceptionSpanAsync$body$_EvaluateVisitor0 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:91835:16)
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+1 │ @import "variables";
+  │         ^^^^^^^^^^^
+  ╵
+    styles/main.scss 1:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+2 │ @import "colors";
+  │         ^^^^^^^^
+  ╵
+    styles/main.scss 2:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+3 │ @import "utilities-colors";
+  │         ^^^^^^^^^^^^^^^^^^
+  ╵
+    styles/main.scss 3:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+4 │ @import "bootstrap/scss/bootstrap";
+  │         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    styles/main.scss 4:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+5 │ @import "theme";
+  │         ^^^^^^^
+  ╵
+    styles/main.scss 5:9  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+63 │   "purple-subtle":  map-get($purple-scale, 100),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 63:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+64 │   "purple-light":   map-get($purple-scale, 300),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 64:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+65 │   "purple-base":    map-get($purple-scale, 500),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 65:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+66 │   "purple-dark":    map-get($purple-scale, 700),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 66:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+67 │   "purple-darker":  map-get($purple-scale, 900),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 67:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+10:23:28 PM [vite] (client) Pre-transform error: [sass] $map: null is not a map.
+    ╷
+100 │   @return map-get($scale, $step);
+    │           ^^^^^^^^^^^^^^^^^^^^^^
+    ╵
+  styles/_colors.scss 100:11           bg-token()
+  styles/_utilities-colors.scss 47:25  @import
+  styles/main.scss 3:9                 root stylesheet
+  Plugin: vite:css
+  File: /Users/lizmartinez/Documents/GitHub/timio/styles/main.scss:100:11
+  [sass] $map: null is not a map.
+      ╷
+  100 │   @return map-get($scale, $step);
+      │           ^^^^^^^^^^^^^^^^^^^^^^
+      ╵
+    styles/_colors.scss 100:11           bg-token()
+    styles/_utilities-colors.scss 47:25  @import
+    styles/main.scss 3:9                 root stylesheet
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+1 │ @import "variables";
+  │         ^^^^^^^^^^^
+  ╵
+    styles/main.scss 1:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+2 │ @import "colors";
+  │         ^^^^^^^^
+  ╵
+    styles/main.scss 2:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+3 │ @import "utilities-colors";
+  │         ^^^^^^^^^^^^^^^^^^
+  ╵
+    styles/main.scss 3:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+4 │ @import "bootstrap/scss/bootstrap";
+  │         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    styles/main.scss 4:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+5 │ @import "theme";
+  │         ^^^^^^^
+  ╵
+    styles/main.scss 5:9  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+63 │   "purple-subtle":  map-get($purple-scale, 100),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 63:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+64 │   "purple-light":   map-get($purple-scale, 300),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 64:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+65 │   "purple-base":    map-get($purple-scale, 500),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 65:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+66 │   "purple-dark":    map-get($purple-scale, 700),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 66:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+67 │   "purple-darker":  map-get($purple-scale, 900),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 67:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+10:23:29 PM [vite] Internal server error: [sass] $map: null is not a map.
+    ╷
+100 │   @return map-get($scale, $step);
+    │           ^^^^^^^^^^^^^^^^^^^^^^
+    ╵
+  styles/_colors.scss 100:11           bg-token()
+  styles/_utilities-colors.scss 47:25  @import
+  styles/main.scss 3:9                 root stylesheet
+  Plugin: vite:css
+  File: /Users/lizmartinez/Documents/GitHub/timio/styles/main.scss:100:11
+  [sass] $map: null is not a map.
+      ╷
+  100 │   @return map-get($scale, $step);
+      │           ^^^^^^^^^^^^^^^^^^^^^^
+      ╵
+    styles/_colors.scss 100:11           bg-token()
+    styles/_utilities-colors.scss 47:25  @import
+    styles/main.scss 3:9                 root stylesheet
+      at Object.throwExpression (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:2335:64)
+      at _SassNull0.assertMap$1 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:125407:16)
+      at _get_closure0.call$1 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:110417:40)
+      at BuiltInCallable_withDeprecationWarning_closure0.call$1 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:96324:37)
+      at _EvaluateVisitor__runBuiltInCallable_closure9.call$0 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:94770:35)
+      at /Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:91791:29
+      at _wrapJsFunctionForAsync_closure.$protected (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:4984:15)
+      at _wrapJsFunctionForAsync_closure.call$2 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:38319:12)
+      at Object._asyncStartSync (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:4948:20)
+      at _EvaluateVisitor2._addExceptionSpanAsync$body$_EvaluateVisitor0 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:91835:16)
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+1 │ @import "variables";
+  │         ^^^^^^^^^^^
+  ╵
+    styles/main.scss 1:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+2 │ @import "colors";
+  │         ^^^^^^^^
+  ╵
+    styles/main.scss 2:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+3 │ @import "utilities-colors";
+  │         ^^^^^^^^^^^^^^^^^^
+  ╵
+    styles/main.scss 3:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+4 │ @import "bootstrap/scss/bootstrap";
+  │         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    styles/main.scss 4:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+5 │ @import "theme";
+  │         ^^^^^^^
+  ╵
+    styles/main.scss 5:9  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+63 │   "purple-subtle":  map-get($purple-scale, 100),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 63:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+64 │   "purple-light":   map-get($purple-scale, 300),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 64:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+65 │   "purple-base":    map-get($purple-scale, 500),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 65:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+66 │   "purple-dark":    map-get($purple-scale, 700),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 66:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+67 │   "purple-darker":  map-get($purple-scale, 900),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 67:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+10:23:30 PM [vite] Internal server error: [sass] $map: null is not a map.
+    ╷
+100 │   @return map-get($scale, $step);
+    │           ^^^^^^^^^^^^^^^^^^^^^^
+    ╵
+  styles/_colors.scss 100:11           bg-token()
+  styles/_utilities-colors.scss 47:25  @import
+  styles/main.scss 3:9                 root stylesheet
+  Plugin: vite:css
+  File: /Users/lizmartinez/Documents/GitHub/timio/styles/main.scss:100:11
+  [sass] $map: null is not a map.
+      ╷
+  100 │   @return map-get($scale, $step);
+      │           ^^^^^^^^^^^^^^^^^^^^^^
+      ╵
+    styles/_colors.scss 100:11           bg-token()
+    styles/_utilities-colors.scss 47:25  @import
+    styles/main.scss 3:9                 root stylesheet
+      at Object.throwExpression (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:2335:64)
+      at _SassNull0.assertMap$1 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:125407:16)
+      at _get_closure0.call$1 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:110417:40)
+      at BuiltInCallable_withDeprecationWarning_closure0.call$1 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:96324:37)
+      at _EvaluateVisitor__runBuiltInCallable_closure9.call$0 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:94770:35)
+      at /Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:91791:29
+      at _wrapJsFunctionForAsync_closure.$protected (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:4984:15)
+      at _wrapJsFunctionForAsync_closure.call$2 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:38319:12)
+      at Object._asyncStartSync (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:4948:20)
+      at _EvaluateVisitor2._addExceptionSpanAsync$body$_EvaluateVisitor0 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:91835:16)
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+1 │ @import "variables";
+  │         ^^^^^^^^^^^
+  ╵
+    styles/main.scss 1:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+2 │ @import "colors";
+  │         ^^^^^^^^
+  ╵
+    styles/main.scss 2:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+3 │ @import "utilities-colors";
+  │         ^^^^^^^^^^^^^^^^^^
+  ╵
+    styles/main.scss 3:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+4 │ @import "bootstrap/scss/bootstrap";
+  │         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    styles/main.scss 4:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+5 │ @import "theme";
+  │         ^^^^^^^
+  ╵
+    styles/main.scss 5:9  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+63 │   "purple-subtle":  map-get($purple-scale, 100),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 63:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+64 │   "purple-light":   map-get($purple-scale, 300),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 64:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+65 │   "purple-base":    map-get($purple-scale, 500),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 65:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+66 │   "purple-dark":    map-get($purple-scale, 700),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 66:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+67 │   "purple-darker":  map-get($purple-scale, 900),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 67:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+10:23:30 PM [vite] Internal server error: [sass] $map: null is not a map.
+    ╷
+100 │   @return map-get($scale, $step);
+    │           ^^^^^^^^^^^^^^^^^^^^^^
+    ╵
+  styles/_colors.scss 100:11           bg-token()
+  styles/_utilities-colors.scss 47:25  @import
+  styles/main.scss 3:9                 root stylesheet
+  Plugin: vite:css
+  File: /Users/lizmartinez/Documents/GitHub/timio/styles/main.scss:100:11
+  [sass] $map: null is not a map.
+      ╷
+  100 │   @return map-get($scale, $step);
+      │           ^^^^^^^^^^^^^^^^^^^^^^
+      ╵
+    styles/_colors.scss 100:11           bg-token()
+    styles/_utilities-colors.scss 47:25  @import
+    styles/main.scss 3:9                 root stylesheet
+      at Object.throwExpression (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:2335:64)
+      at _SassNull0.assertMap$1 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:125407:16)
+      at _get_closure0.call$1 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:110417:40)
+      at BuiltInCallable_withDeprecationWarning_closure0.call$1 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:96324:37)
+      at _EvaluateVisitor__runBuiltInCallable_closure9.call$0 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:94770:35)
+      at /Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:91791:29
+      at _wrapJsFunctionForAsync_closure.$protected (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:4984:15)
+      at _wrapJsFunctionForAsync_closure.call$2 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:38319:12)
+      at Object._asyncStartSync (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:4948:20)
+      at _EvaluateVisitor2._addExceptionSpanAsync$body$_EvaluateVisitor0 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:91835:16)
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+1 │ @import "variables";
+  │         ^^^^^^^^^^^
+  ╵
+    styles/main.scss 1:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+2 │ @import "colors";
+  │         ^^^^^^^^
+  ╵
+    styles/main.scss 2:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+3 │ @import "utilities-colors";
+  │         ^^^^^^^^^^^^^^^^^^
+  ╵
+    styles/main.scss 3:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+4 │ @import "bootstrap/scss/bootstrap";
+  │         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    styles/main.scss 4:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+5 │ @import "theme";
+  │         ^^^^^^^
+  ╵
+    styles/main.scss 5:9  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+63 │   "purple-subtle":  map-get($purple-scale, 100),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 63:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+64 │   "purple-light":   map-get($purple-scale, 300),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 64:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+65 │   "purple-base":    map-get($purple-scale, 500),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 65:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+66 │   "purple-dark":    map-get($purple-scale, 700),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 66:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+67 │   "purple-darker":  map-get($purple-scale, 900),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 67:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+10:23:30 PM [vite] Internal server error: [sass] $map: null is not a map.
+    ╷
+100 │   @return map-get($scale, $step);
+    │           ^^^^^^^^^^^^^^^^^^^^^^
+    ╵
+  styles/_colors.scss 100:11           bg-token()
+  styles/_utilities-colors.scss 47:25  @import
+  styles/main.scss 3:9                 root stylesheet
+  Plugin: vite:css
+  File: /Users/lizmartinez/Documents/GitHub/timio/styles/main.scss:100:11
+  [sass] $map: null is not a map.
+      ╷
+  100 │   @return map-get($scale, $step);
+      │           ^^^^^^^^^^^^^^^^^^^^^^
+      ╵
+    styles/_colors.scss 100:11           bg-token()
+    styles/_utilities-colors.scss 47:25  @import
+    styles/main.scss 3:9                 root stylesheet
+      at Object.throwExpression (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:2335:64)
+      at _SassNull0.assertMap$1 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:125407:16)
+      at _get_closure0.call$1 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:110417:40)
+      at BuiltInCallable_withDeprecationWarning_closure0.call$1 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:96324:37)
+      at _EvaluateVisitor__runBuiltInCallable_closure9.call$0 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:94770:35)
+      at /Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:91791:29
+      at _wrapJsFunctionForAsync_closure.$protected (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:4984:15)
+      at _wrapJsFunctionForAsync_closure.call$2 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:38319:12)
+      at Object._asyncStartSync (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:4948:20)
+      at _EvaluateVisitor2._addExceptionSpanAsync$body$_EvaluateVisitor0 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:91835:16)
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+1 │ @import "variables";
+  │         ^^^^^^^^^^^
+  ╵
+    styles/main.scss 1:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+2 │ @import "colors";
+  │         ^^^^^^^^
+  ╵
+    styles/main.scss 2:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+3 │ @import "utilities-colors";
+  │         ^^^^^^^^^^^^^^^^^^
+  ╵
+    styles/main.scss 3:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+4 │ @import "bootstrap/scss/bootstrap";
+  │         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    styles/main.scss 4:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+5 │ @import "theme";
+  │         ^^^^^^^
+  ╵
+    styles/main.scss 5:9  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+63 │   "purple-subtle":  map-get($purple-scale, 100),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 63:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+64 │   "purple-light":   map-get($purple-scale, 300),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 64:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+65 │   "purple-base":    map-get($purple-scale, 500),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 65:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+66 │   "purple-dark":    map-get($purple-scale, 700),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 66:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+67 │   "purple-darker":  map-get($purple-scale, 900),
+   │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    styles/_colors.scss 67:21  @import
+    styles/main.scss 2:9       root stylesheet
+
+10:28:25 PM [vite] Internal server error: [sass] $map: null is not a map.
+    ╷
+100 │   @return map-get($scale, $step);
+    │           ^^^^^^^^^^^^^^^^^^^^^^
+    ╵
+  styles/_colors.scss 100:11           bg-token()
+  styles/_utilities-colors.scss 47:25  @import
+  styles/main.scss 3:9                 root stylesheet
+  Plugin: vite:css
+  File: /Users/lizmartinez/Documents/GitHub/timio/styles/main.scss:100:11
+  [sass] $map: null is not a map.
+      ╷
+  100 │   @return map-get($scale, $step);
+      │           ^^^^^^^^^^^^^^^^^^^^^^
+      ╵
+    styles/_colors.scss 100:11           bg-token()
+    styles/_utilities-colors.scss 47:25  @import
+    styles/main.scss 3:9                 root stylesheet
+      at Object.throwExpression (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:2335:64)
+      at _SassNull0.assertMap$1 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:125407:16)
+      at _get_closure0.call$1 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:110417:40)
+      at BuiltInCallable_withDeprecationWarning_closure0.call$1 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:96324:37)
+      at _EvaluateVisitor__runBuiltInCallable_closure9.call$0 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:94770:35)
+      at /Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:91791:29
+      at _wrapJsFunctionForAsync_closure.$protected (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:4984:15)
+      at _wrapJsFunctionForAsync_closure.call$2 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:38319:12)
+      at Object._asyncStartSync (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:4948:20)
+      at _EvaluateVisitor2._addExceptionSpanAsync$body$_EvaluateVisitor0 (/Users/lizmartinez/Documents/GitHub/timio/node_modules/sass/sass.dart.js:91835:16)
