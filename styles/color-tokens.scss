@@ -1,0 +1,119 @@
+// Text colors
+$color-text-primary: (
+  base: #3C2A68,
+  darker: #332257,
+  subtle: #5A4781,
+  ghost: #8A80B0
+);
+$color-text-secondary: (
+  base: #2B2B2B,
+  darker: #1F1F1F,
+  subtle: #515151,
+  ghost: #7A7A7A
+);
+$color-text-accent: #728424;
+$color-text-neutral: #5C5D69;
+
+// Background colors
+$color-bg-primary: (
+  base: #3C2A68,
+  darker: #2F1F52,
+  subtle: #F0ECF8,
+  ghost: #F7F5FC
+);
+$color-bg-secondary: (
+  base: #C9C5FF,
+  darker: #B1ACF0,
+  subtle: #E8E6FF,
+  ghost: #F4F3FF
+);
+$color-bg-accent: (
+  base: #D8E86A,
+  darker: #94A717,
+  subtle: #EEF5BF,
+  ghost: #F7FAE0
+);
+$color-bg-surface: (
+  base: #FBF8EC,
+  darker: #E6E1D5,
+  subtle: #FFFCF5,
+  ghost: #FFFFFF
+);
+$color-bg-neutral: (
+  base: #A3A3B5,
+  darker: #5C5D69,
+  subtle: #E6E6EB,
+  ghost: #FFFFFF
+);
+
+// Semantic map for easy lookups
+$semantic-colors: (
+  "color.text.primary": $color-text-primary,
+  "color.text.secondary": $color-text-secondary,
+  "color.text.accent": $color-text-accent,
+  "color.text.neutral": $color-text-neutral,
+  "color.bg.primary": $color-bg-primary,
+  "color.bg.secondary": $color-bg-secondary,
+  "color.bg.accent": $color-bg-accent,
+  "color.bg.surface": $color-bg-surface,
+  "color.bg.neutral": $color-bg-neutral
+);
+
+// Dark mode variants (same structure)
+$color-text-primary-dark: (
+  base: #F5F5F5,
+  darker: #E6E6E6,
+  subtle: #D0D0D0,
+  ghost: #B8B8B8
+);
+$color-text-secondary-dark: (
+  base: #D9D9D9,
+  darker: #C0C0C0,
+  subtle: #A6A6A6,
+  ghost: #8C8C8C
+);
+$color-text-accent-dark: #E6F2A6;
+$color-text-neutral-dark: #F0F0F0;
+
+$color-bg-primary-dark: (
+  base: #2F1F52,
+  darker: #24173F,
+  subtle: #3C2A68,
+  ghost: #201836
+);
+$color-bg-secondary-dark: (
+  base: #9C90DC,
+  darker: #7F73BD,
+  subtle: #B1ACF0,
+  ghost: #4A3C7A
+);
+$color-bg-accent-dark: (
+  base: #BCCE4E,
+  darker: #9AAF38,
+  subtle: #DCE99A,
+  ghost: #2F331D
+);
+$color-bg-surface-dark: (
+  base: #1A1A1A,
+  darker: #121212,
+  subtle: #222222,
+  ghost: #2B2B2B
+);
+$color-bg-neutral-dark: (
+  base: #3B3B44,
+  darker: #000000,
+  subtle: #5C5D69,
+  ghost: #A3A3B5
+);
+
+$semantic-colors-dark: (
+  "color.text.primary": $color-text-primary-dark,
+  "color.text.secondary": $color-text-secondary-dark,
+  "color.text.accent": $color-text-accent-dark,
+  "color.text.neutral": $color-text-neutral-dark,
+  "color.bg.primary": $color-bg-primary-dark,
+  "color.bg.secondary": $color-bg-secondary-dark,
+  "color.bg.accent": $color-bg-accent-dark,
+  "color.bg.surface": $color-bg-surface-dark,
+  "color.bg.neutral": $color-bg-neutral-dark
+);

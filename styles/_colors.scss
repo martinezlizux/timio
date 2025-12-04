@@ -1,0 +1,122 @@
+@use "sass:map";
+
+// Primitive scales
+$purple-scale: (
+  100: #F1EEFB,
+  200: #DCD2F7,
+  300: #C7B8F4,
+  400: #AB94E8,
+  500: #6F5ACF,
+  600: #5F4CAF,
+  700: #4B3C8C,
+  800: #3A2F6D,
+  900: #271F4B
+);
+
+$green-scale: (
+  100: #F8FDE8,
+  200: #EFFBCA,
+  300: #E6F8AA,
+  400: #DDF58A,
+  500: #D4F26A,
+  600: #A3BC50,
+  700: #738536,
+  800: #434E1C,
+  900: #131702
+);
+
+$orange-scale: (
+  100: #FEF2E7,
+  200: #FBDAB7,
+  300: #F8C086,
+  400: #F5A655,
+  500: #F28C24,
+  600: #BD6D1C,
+  700: #864D13,
+  800: #4F2D0A,
+  900: #180D01
+);
+
+$emerald-scale: (
+  100: #EBF9F8,
+  200: #C3EEEB,
+  300: #9CE3DE,
+  400: #75D8D1,
+  500: #4ECDC4,
+  600: #3C9E97,
+  700: #2A706B,
+  800: #18423F,
+  900: #061413
+);
+
+$gray-scale: (
+  00: #FFFFFF,
+  100: #F1F2F4,
+  200: #D7DADF,
+  300: #BEC2CB,
+  400: #A5AAB7,
+  500: #8C92A3,
+  600: #6B727D,
+  700: #4B5058,
+  800: #2B2E33,
+  900: #0B0C0E
+);
+
+// Background scales map
+$bg-scales: (
+  "primary": $purple-scale,
+  "secondary": $green-scale,
+  "tertiary": $orange-scale,
+  "emerald": $emerald-scale,
+  "neutral": $gray-scale
+);
+
+// Text semantic tokens (subtle, light, base, dark, darker)
+$text-tokens: (
+  "purple-subtle":  map-get($purple-scale, 100),
+  "purple-light":   map-get($purple-scale, 300),
+  "purple-base":    map-get($purple-scale, 500),
+  "purple-dark":    map-get($purple-scale, 700),
+  "purple-darker":  map-get($purple-scale, 900),
+
+  "green-subtle": map-get($green-scale, 100),
+  "green-light":  map-get($green-scale, 300),
+  "green-base":   map-get($green-scale, 500),
+  "green-dark":   map-get($green-scale, 700),
+  "green-darker": map-get($green-scale, 900),
+
+  "orange-subtle": map-get($orange-scale, 100),
+  "orange-light":  map-get($orange-scale, 300),
+  "orange-base":   map-get($orange-scale, 500),
+  "orange-dark":   map-get($orange-scale, 700),
+  "orange-darker": map-get($orange-scale, 900),
+
+  "emerald-subtle": map-get($emerald-scale, 100),
+  "emerald-light":  map-get($emerald-scale, 300),
+  "emerald-base":   map-get($emerald-scale, 500),
+  "emerald-dark":   map-get($emerald-scale, 700),
+  "emerald-darker": map-get($emerald-scale, 900),
+
+  "gray-subtle": map-get($gray-scale, 100),
+  "gray-light":  map-get($gray-scale, 300),
+  "gray-base":   map-get($gray-scale, 500),
+  "gray-dark":   map-get($gray-scale, 700),
+  "gray-darker": map-get($gray-scale, 900)
+);
+
+@function text-color-token($name) {
+  @return map-get($text-tokens, $name);
+}
+
+@mixin text-color($name) {
+  color: text-color-token($name);
+}
+
+@function bg-token($family, $step) {
+  $scale: map-get($bg-scales, $family);
+  @return map-get($scale, $step);
+}
+
+@mixin bg-color($family, $step) {
+  background-color: bg-token($family, $step);
+}

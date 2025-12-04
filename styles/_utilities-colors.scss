@@ -1,0 +1,50 @@
+@use "./_colors" as colors;
+
+// Generate text utility classes from $text-tokens
+@each $name, $value in colors.$text-tokens {
+  .text-#{$name} {
+    color: colors.text-color-token($name);
+  }
+}
+
+// Default brand text helpers (alias to purple scale)
+.text-color-subtle { color: colors.text-color-token("purple-subtle"); }
+.text-color-light  { color: colors.text-color-token("purple-light"); }
+.text-color-base   { color: colors.text-color-token("purple-base"); }
+.text-color-dark   { color: colors.text-color-token("purple-dark"); }
+.text-color-darker { color: colors.text-color-token("purple-darker"); }
+
+// Background utilities from primitive scales
+@each $family, $scale in colors.$bg-scales {
+  @each $step, $val in $scale {
+    .bg-#{$family}-#{$step} {
+      background-color: $val;
+    }
+  }
+}
+
+// Semantic background states (subtle/light/base/dark/darker)
+$bg-semantic-steps: (
+  "subtle": 100,
+  "light": 300,
+  "base": 500,
+  "dark": 700,
+  "darker": 800
+);
+
+// Map friendly names to scale keys
+$bg-families: (
+  "purple": "primary",
+  "green": "secondary",
+  "orange": "tertiary",
+  "emerald": "emerald",
+  "gray": "neutral"
+);
+
+@each $friendly, $scale-key in $bg-families {
+  @each $state, $step in $bg-semantic-steps {
+    .bg-#{$friendly}-#{$state} {
+      background-color: colors.bg-token($scale-key, $step);
+    }
+  }
+}

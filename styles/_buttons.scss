@@ -1,0 +1,225 @@
+@use "sass:map";
+@use "./_colors" as colors;
+
+.btn {
+  border-radius: 999px;
+  font-weight: 700;
+  padding: 0.55rem 1.15rem;
+  transition: all 0.18s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+}
+
+.btn--primary {
+  @include colors.bg-color("primary", 500);
+  color: #fff;
+  border-color: colors.bg-token("primary", 500);
+
+  &:hover {
+    @include colors.bg-color("primary", 600);
+  }
+  &:active {
+    @include colors.bg-color("primary", 700);
+    transform: translateY(1px);
+  }
+}
+
+.btn--secondary {
+  @include colors.bg-color("secondary", 500);
+  @include colors.text-color("neutral-darker");
+  border-color: colors.bg-token("secondary", 500);
+
+  &:hover {
+    @include colors.bg-color("secondary", 600);
+  }
+  &:active {
+    @include colors.bg-color("secondary", 700);
+    transform: translateY(1px);
+  }
+}
+
+.btn--ghost {
+  background: transparent;
+  @include colors.text-color("primary-base");
+  border-color: colors.bg-token("primary", 300);
+
+  &:hover {
+    @include colors.bg-color("primary", 100);
+  }
+  &:active {
+    @include colors.bg-color("primary", 200);
+    transform: translateY(1px);
+  }
+}
+
+.btn--outline {
+  background: transparent;
+  @include colors.text-color("primary-base");
+  border-color: colors.bg-token("primary", 500);
+
+  &:hover {
+    border-color: colors.bg-token("primary", 700);
+    @include colors.bg-color("primary", 100);
+  }
+  &:active {
+    border-color: colors.bg-token("primary", 700);
+    @include colors.bg-color("primary", 200);
+    transform: translateY(1px);
+  }
+}
+
+.btn--outline-secondary {
+  background: transparent;
+  @include colors.text-color("neutral-dark");
+  border-color: colors.bg-token("secondary", 600);
+
+  &:hover {
+    @include colors.bg-color("secondary", 100);
+    border-color: colors.bg-token("secondary", 600);
+  }
+
+  &:active {
+    @include colors.bg-color("secondary", 200);
+    border-color: colors.bg-token("secondary", 600);
+    transform: translateY(1px);
+  }
+
+}
+
+// Bootstrap button variants themed with tokens
+.btn-primary {
+  --bs-btn-bg: #{colors.bg-token("primary", 500)};
+  --bs-btn-border-color: #{colors.bg-token("primary", 500)};
+  --bs-btn-hover-bg: #{colors.bg-token("primary", 600)};
+  --bs-btn-hover-border-color: #{colors.bg-token("primary", 600)};
+  --bs-btn-active-bg: #{colors.bg-token("primary", 700)};
+  --bs-btn-active-border-color: #{colors.bg-token("primary", 700)};
+  --bs-btn-color: #fff;
+}
+
+.btn-secondary {
+  --bs-btn-bg: #{colors.bg-token("secondary", 500)};
+  --bs-btn-border-color: #{colors.bg-token("secondary", 500)};
+  --bs-btn-hover-bg: #{colors.bg-token("secondary", 600)};
+  --bs-btn-hover-border-color: #{colors.bg-token("secondary", 600)};
+  --bs-btn-active-bg: #{colors.bg-token("secondary", 700)};
+  --bs-btn-active-border-color: #{colors.bg-token("secondary", 700)};
+  --bs-btn-color: #{colors.text-color-token("gray-darker")};
+}
+
+.btn-warning {
+  --bs-btn-bg: #{colors.bg-token("tertiary", 500)};
+  --bs-btn-border-color: #{colors.bg-token("tertiary", 500)};
+  --bs-btn-hover-bg: #{colors.bg-token("tertiary", 600)};
+  --bs-btn-hover-border-color: #{colors.bg-token("tertiary", 600)};
+  --bs-btn-active-bg: #{colors.bg-token("tertiary", 700)};
+  --bs-btn-active-border-color: #{colors.bg-token("tertiary", 700)};
+  --bs-btn-color: #{colors.text-color-token("gray-darker")};
+}
+
+.btn-success {
+  --bs-btn-bg: #{colors.bg-token("emerald", 500)};
+  --bs-btn-border-color: #{colors.bg-token("emerald", 500)};
+  --bs-btn-hover-bg: #{colors.bg-token("emerald", 600)};
+  --bs-btn-hover-border-color: #{colors.bg-token("emerald", 600)};
+  --bs-btn-active-bg: #{colors.bg-token("emerald", 700)};
+  --bs-btn-active-border-color: #{colors.bg-token("emerald", 700)};
+  --bs-btn-color: #fff;
+}
+
+.btn-outline-primary {
+  --bs-btn-bg: #{colors.bg-token("primary", 100)};
+  --bs-btn-border-color: #{colors.bg-token("primary", 500)};
+  --bs-btn-color: #{colors.text-color-token("purple-base")};
+  --bs-btn-hover-bg: #{colors.bg-token("primary", 200)};
+  --bs-btn-hover-border-color: #{colors.bg-token("primary", 600)};
+  --bs-btn-active-bg: #{colors.bg-token("primary", 300)};
+  --bs-btn-active-border-color: #{colors.bg-token("primary", 700)};
+}
+
+.btn-outline-secondary {
+  --bs-btn-bg: #{colors.bg-token("secondary", 100)};
+  --bs-btn-border-color: #{colors.bg-token("secondary", 500)};
+  --bs-btn-color: #{colors.text-color-token("green-base")};
+  --bs-btn-hover-bg: #{colors.bg-token("secondary", 200)};
+  --bs-btn-hover-border-color: #{colors.bg-token("secondary", 600)};
+  --bs-btn-active-bg: #{colors.bg-token("secondary", 300)};
+  --bs-btn-active-border-color: #{colors.bg-token("secondary", 700)};
+}
+
+.btn-outline-success {
+  --bs-btn-bg: #{colors.bg-token("emerald", 100)};
+  --bs-btn-border-color: #{colors.bg-token("emerald", 500)};
+  --bs-btn-color: #{colors.text-color-token("emerald-base")};
+  --bs-btn-hover-bg: #{colors.bg-token("emerald", 200)};
+  --bs-btn-hover-border-color: #{colors.bg-token("emerald", 600)};
+  --bs-btn-active-bg: #{colors.bg-token("emerald", 300)};
+  --bs-btn-active-border-color: #{colors.bg-token("emerald", 700)};
+}
+
+.btn-outline-warning {
+  --bs-btn-bg: #{colors.bg-token("tertiary", 100)};
+  --bs-btn-border-color: #{colors.bg-token("tertiary", 500)};
+  --bs-btn-color: #{colors.text-color-token("orange-base")};
+  --bs-btn-hover-bg: #{colors.bg-token("tertiary", 200)};
+  --bs-btn-hover-border-color: #{colors.bg-token("tertiary", 600)};
+  --bs-btn-active-bg: #{colors.bg-token("tertiary", 300)};
+  --bs-btn-active-border-color: #{colors.bg-token("tertiary", 700)};
+}
+
+.btn-link {
+  color: colors.bg-token("tertiary", 500);
+  text-decoration-color: colors.bg-token("tertiary", 500);
+
+  &:hover {
+    color: colors.bg-token("tertiary", 700);
+    text-decoration-color: colors.bg-token("tertiary", 700);
+    background-color: colors.bg-token("tertiary", 300);
+  }
+}
+
+.btn-link-primary {
+  color: colors.bg-token("primary", 600);
+  text-decoration-color: colors.bg-token("primary", 600);
+
+  &:hover {
+    color: colors.bg-token("primary", 700);
+    text-decoration-color: colors.bg-token("primary", 700);
+    background-color: colors.bg-token("primary", 300);
+  }
+}
+
+.btn-link-secondary {
+  color: colors.bg-token("secondary", 600);
+  text-decoration-color: colors.bg-token("secondary", 600);
+
+  &:hover {
+    color: colors.bg-token("secondary", 700);
+    text-decoration-color: colors.bg-token("secondary", 700);
+    background-color: colors.bg-token("secondary", 300);
+  }
+}
+
+.btn-link-warning {
+  color: colors.bg-token("tertiary", 600);
+  text-decoration-color: colors.bg-token("tertiary", 600);
+
+  &:hover {
+    color: colors.bg-token("tertiary", 700);
+    text-decoration-color: colors.bg-token("tertiary", 700);
+    background-color: colors.bg-token("tertiary", 300);
+  }
+}
+
+.btn-link-system {
+  color: colors.text-color-token("gray-darker");
+  text-decoration-color: colors.text-color-token("gray-darker");
+
+  &:hover {
+    color: colors.text-color-token("gray-darker");
+    text-decoration-color: colors.text-color-token("gray-darker");
+    background-color: colors.bg-token("neutral", 100);
+  }
+}
