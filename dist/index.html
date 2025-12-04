@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE0p1ylrh2V9C+8abtTE1Pi6jizoUksdQRVOfl8mZB1zI2K0A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Tailwind CDN kept to preserve utility classes alongside Bootstrap -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script type="module" crossorigin src="./assets/index-CNTQoAtH.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CF1bt74w.css">
+    <script type="module" crossorigin src="./assets/index-C9en2bH6.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-mn_Qu7rv.css">
   </head>
   <body>
     <div id="app" class="min-vh-100 timio-app p-3 p-md-4" style="background: var(--timio-bg);">
@@ -28,59 +28,58 @@
           </div>
         </header>
 
-        <section id="s-resumen" class="row g-3 mb-4">
+        <section id="s-hero" class="row align-items-center gy-4 mb-4">
+          <div class="col-lg-7">
+            <span class="hero-pill">Nuevo</span>
+            <h1 class="hero-title">Controla tus horas trabajadas con Timio</h1>
+            <p class="hero-description">Registra, exporta y analiza tus proyectos en un solo lugar. Visualiza tus totales y obtén insights al instante.</p>
+          </div>
+          <div class="col-lg-5 text-center">
+          
+            <img src="./assets/timio1-SYfQ9P7M.svg" alt="Ilustración de persona sosteniendo un reloj" class="hero-illustration">
+          </div>
+        </section>
+
+        <section id="s-resumen" class="row g-3 mb-4 ">
           <div class="col-md-4">
-            <div class="card-soft bg-purple-subtle text-on-primary">
-              <h5 class="mb-0" >Total de horas</h5>
-              <div id="stat-hours" class="fs-3 fw-bold" style="color: var(--timio-primary);">0h</div>
+            <div class="hero-stat-card">
+              <div class="hero-stat-label">Total de horas</div>
+              <div id="stat-hours" class="hero-stat-value">0h</div>
             </div>
           </div>
           <div class="col-md-4">
-            <div class="card-soft bg-purple-subtle text-on-primary">
-              <h5 class="mb-0" >Total facturado</h5>
-              <div id="stat-earnings" class="fs-3 fw-bold" style="color: var(--timio-primary);">$0.00</div>
+            <div class="hero-stat-card">
+              <div class="hero-stat-label">Total facturado</div>
+              <div id="stat-earnings" class="hero-stat-value">$0.00</div>
             </div>
           </div>
           <div class="col-md-4">
-            <div class="card-soft bg-purple-subtle text-on-primary">
-              <h5 class="mb-0" >Total de entradas</h5>
-              <div id="stat-count" class="fs-3 fw-bold" style="color: var(--timio-primary);">0</div>
+            <div class="hero-stat-card">
+              <div class="hero-stat-label">Total de entradas</div>
+              <div id="stat-count" class="hero-stat-value">0</div>
             </div>
           </div>
         </section>
 
         <section id="s-entradas" class="g-3 mb-4 box-section bg-gray-subtle">
           <div id="s-filtros" class="row g-3 mb-4">
-            <div class="d-flex flex-wrap align-items-center gap-2 mb-3 d-none">
-              <div class="btn-group" role="group" aria-label="Filtro fechas">
-                <button type="button" id="btn-mode-month" class="btn btn-outline-primary btn-sm active">Mes</button>
-                <button type="button" id="btn-mode-day" class="btn btn-outline-primary btn-sm">Día</button>
-                <button type="button" id="btn-mode-range" class="btn btn-outline-primary btn-sm">Rango</button>
+            <div class="d-flex flex-wrap align-items-center gap-2">
+              <div class="dropdown filter-dropdown">
+                <i class="fa-solid fa-filter"></i>
+                <button id="filter-time-toggle" class="btn btn-link-system btn-sm dropdown-toggle" type="button" aria-expanded="false">
+                  Tiempo: <span id="filter-time-label">Todos</span>
+                </button>
+                <div class="dropdown-menu shadow-sm p-3" id="filter-time-menu"></div>
               </div>
-              <div id="date-inputs" class="d-flex gap-2 flex-wrap"></div>
-              <div class="d-flex align-items-center gap-2">
-                <label class="text-muted small mb-0">Cliente</label>
-                <select id="filter-client" class="form-select form-select-sm" style="min-width:180px;"></select>
+              <div class="dropdown filter-dropdown">
+                <button id="filter-client-toggle" class="btn btn-link-system btn-sm dropdown-toggle" type="button" aria-expanded="false">
+                  Cliente: <span id="filter-client-label">Todos</span>
+                </button>
+                <div class="dropdown-menu shadow-sm p-3" id="filter-client-menu" style="min-width:240px;"></div>
               </div>
-              <button id="btn-clear-filters" class="btn btn-link text-danger btn-sm">Limpiar</button>
             </div>
+            <div id="s-filtros-aplicados" class="d-flex flex-wrap gap-2 d-none">
 
-            <div class="d-flex flex-wrap gap-2 mb-3 justify-content-between align-items-center">
-              <div class="d-flex flex-wrap gap-2">
-                <button id="btn-new" class="btn btn-primary"> <i class="fa-solid fa-plus"></i> Agregar Horas</button>
-                <label class="btn btn-outline-primary btn-soft mb-0">
-                  Importar datos
-                  <input id="file-upload" type="file" accept=".csv,.xlsx" hidden />
-                </label>
-              </div>
-              <div class="d-flex gap-2 align-items-center ms-auto">
-                <button id="btn-copy" class="btn btn-link-primary" title="Copiar tabla">
-                  <i class="fa-solid fa-copy"></i> Copiar
-                </button>
-                <button id="btn-export-csv" class="btn btn-link-primary" title="Exportar CSV">
-                  <i class="fa-solid fa-file-export"></i> Exportar
-                </button>
-              </div>
             </div>
           </div>
 
@@ -101,6 +100,26 @@
                 <tbody id="entries-body"></tbody>
                 <tfoot id="entries-foot"></tfoot>
               </table>
+            </div>
+          </div>
+
+          <div id="s-controles" class="row g-3 mb-4">
+            <div class="d-flex flex-wrap gap-2 mb-3 justify-content-between align-items-center">
+              <div class="d-flex flex-wrap gap-2">
+                <button id="btn-new" class="btn btn-primary btn-sm"> <i class="fa-solid fa-plus"></i> Nueva entrada</button>
+                <label class="btn btn-link-primary btn-sm">
+                  Importar datos
+                  <input id="file-upload" type="file" accept=".csv,.xlsx" hidden />
+                </label>
+              </div>
+              <div class="d-flex gap-2 align-items-center ms-auto">
+                <button id="btn-copy" class="btn btn-link-primary btn-sm" title="Copiar tabla">
+                  <i class="fa-solid fa-copy"></i> Copiar
+                </button>
+                <button id="btn-export-csv" class="btn btn-link-primary btn-sm" title="Exportar CSV">
+                  <i class="fa-solid fa-file-export"></i> Exportar
+                </button>
+              </div>
             </div>
           </div>
         </section>
@@ -126,6 +145,7 @@
             </div>
           </div>
         </section>
+
       </div>
     </div>
 
@@ -165,39 +185,6 @@
             </form>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div id="theme-panel" class="card-soft p-3 position-fixed" style="right:16px; bottom:16px; width:260px; display:none; z-index:50;">
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <strong>Tema</strong>
-        <button id="theme-close" class="btn btn-sm btn-outline-secondary">Cerrar</button>
-      </div>
-      <div class="d-grid gap-2">
-        <label class="small d-flex justify-content-between align-items-center">
-          <span class="text-capitalize">bg</span>
-          <input data-theme-key="bg" type="color" value="#B8B8FF" class="form-control form-control-color" />
-        </label>
-        <label class="small d-flex justify-content-between align-items-center">
-          <span class="text-capitalize">text</span>
-          <input data-theme-key="text" type="color" value="#1F1A3D" class="form-control form-control-color" />
-        </label>
-        <label class="small d-flex justify-content-between align-items-center">
-          <span class="text-capitalize">primary</span>
-          <input data-theme-key="primary" type="color" value="#1F1A3D" class="form-control form-control-color" />
-        </label>
-        <label class="small d-flex justify-content-between align-items-center">
-          <span class="text-capitalize">secondary</span>
-          <input data-theme-key="secondary" type="color" value="#D4E72C" class="form-control form-control-color" />
-        </label>
-        <label class="small d-flex justify-content-between align-items-center">
-          <span class="text-capitalize">accent</span>
-          <input data-theme-key="accent" type="color" value="#E0E0FF" class="form-control form-control-color" />
-        </label>
-        <label class="small d-flex justify-content-between align-items-center">
-          <span class="text-capitalize">muted</span>
-          <input data-theme-key="muted" type="color" value="#FEFEF0" class="form-control form-control-color" />
-        </label>
       </div>
     </div>
 
