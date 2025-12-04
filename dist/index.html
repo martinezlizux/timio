@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE0p1ylrh2V9C+8abtTE1Pi6jizoUksdQRVOfl8mZB1zI2K0A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Tailwind CDN kept to preserve utility classes alongside Bootstrap -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script type="module" crossorigin src="/assets/index-D0E_KmTk.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-nSM5_tvQ.css">
+    <script type="module" crossorigin src="./assets/index-C4V4amu3.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-U22eTuVN.css">
   </head>
   <body>
     <div id="app" class="min-vh-100 timio-app p-3 p-md-4" style="background: var(--timio-bg);">
@@ -24,8 +24,8 @@
             </div>
           </div>
           <div class="d-flex gap-2">
-            <button id="btn-theme-panel" class="btn btn-outline-primary btn-sm">Tema</button>
-            <button id="btn-login" class="btn btn-soft-primary btn-sm">Login</button>
+            <button id="btn-theme-panel" class="btn btn-link-system btn-sm">Tema</button>
+            <button id="btn-login" class="btn btn-link-system btn-sm">Login</button>
           </div>
         </header>
 
@@ -68,7 +68,7 @@
 
             <div class="d-flex flex-wrap gap-2 mb-3 justify-content-between align-items-center">
               <div class="d-flex flex-wrap gap-2">
-                <button id="btn-new" class="btn btn-soft-primary"> <i class="fa-solid fa-plus"></i> Nueva entrada</button>
+                <button id="btn-new" class="btn btn-primary"> <i class="fa-solid fa-plus"></i> Nueva entrada</button>
                 <label class="btn btn-outline-primary btn-soft mb-0">
                   Importar datos
                   <input id="file-upload" type="file" accept=".csv,.xlsx" hidden />
@@ -85,7 +85,7 @@
             </div>
           </div>
 
-          <div id="s-tabla" class="card-soft mb-4">
+          <div id="s-tabla" class=" mb-4">
             <div class="table-responsive">
               <table class="table table-timio mb-0">
                 <thead>
@@ -121,7 +121,7 @@
             <div class="card-soft bg-purple-subtle text-on-primary h-100">
               <div class="d-flex justify-content-between align-items-center mb-2">
                 <h5 class="mb-0" style="color: var(--timio-primary);">Insights AI</h5>
-                <button id="btn-analyze" class="btn btn-outline-success btn-soft btn-sm">Analizar con AI</button>
+                <button id="btn-analyze" class="btn btn-success btn-sm"><i class="fa-solid fa-wand-magic-sparkles"> </i>Analizar con AI</button>
               </div>
               <div id="ai-output" class="text-muted small">Sin análisis. Haz clic en "Analizar con AI".</div>
             </div>
@@ -161,7 +161,7 @@
               </div>
               <div class="col-12 text-end">
                 <button type="button" class="btn btn-link text-muted me-2" id="modal-cancel">Cancelar</button>
-                <button type="submit" class="btn btn-soft-primary" id="modal-submit">Guardar</button>
+                <button type="submit" class="btn btn-primary" id="modal-submit">Guardar</button>
               </div>
             </form>
           </div>
