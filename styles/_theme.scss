@@ -1,7 +1,7 @@
 @use "sass:color";
 
 body {
-  font-family: $font-family-sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   min-height: 100vh;
   background: radial-gradient(circle at 20% 20%, var(--color-bg-secondary-ghost, #f4f3ff) 0, var(--color-bg-secondary-subtle, #e8e6ff) 40%, var(--color-bg-surface-base, #fbf8ec) 80%);
   color: var(--color-purple-900, #271f4b);

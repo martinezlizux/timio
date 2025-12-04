@@ -73,41 +73,41 @@ $bg-scales: (
 
 // Text semantic tokens (subtle, light, base, dark, darker)
 $text-tokens: (
-  "purple-subtle":  map-get($purple-scale, 100),
-  "purple-light":   map-get($purple-scale, 300),
-  "purple-base":    map-get($purple-scale, 500),
-  "purple-dark":    map-get($purple-scale, 700),
-  "purple-darker":  map-get($purple-scale, 900),
+  "purple-subtle":  map.get($purple-scale, 100),
+  "purple-light":   map.get($purple-scale, 300),
+  "purple-base":    map.get($purple-scale, 500),
+  "purple-dark":    map.get($purple-scale, 700),
+  "purple-darker":  map.get($purple-scale, 900),
 
-  "green-subtle": map-get($green-scale, 100),
-  "green-light":  map-get($green-scale, 300),
-  "green-base":   map-get($green-scale, 500),
-  "green-dark":   map-get($green-scale, 700),
-  "green-darker": map-get($green-scale, 900),
-  
+  "green-subtle": map.get($green-scale, 100),
+  "green-light":  map.get($green-scale, 300),
+  "green-base":   map.get($green-scale, 500),
+  "green-dark":   map.get($green-scale, 700),
+  "green-darker": map.get($green-scale, 900),
 
-  "orange-subtle": map-get($orange-scale, 100),
-  "orange-light":  map-get($orange-scale, 300),
-  "orange-base":   map-get($orange-scale, 500),
-  "orange-dark":   map-get($orange-scale, 700),
-  "orange-darker": map-get($orange-scale, 900),
 
-  "emerald-subtle": map-get($emerald-scale, 100),
-  "emerald-light":  map-get($emerald-scale, 300),
-  "emerald-base":   map-get($emerald-scale, 500),
-  "emerald-dark":   map-get($emerald-scale, 700),
-  "emerald-darker": map-get($emerald-scale, 900),
+  "orange-subtle": map.get($orange-scale, 100),
+  "orange-light":  map.get($orange-scale, 300),
+  "orange-base":   map.get($orange-scale, 500),
+  "orange-dark":   map.get($orange-scale, 700),
+  "orange-darker": map.get($orange-scale, 900),
 
-  "gray-0": map-get($gray-scale, 00 ),
-  "gray-subtle": map-get($gray-scale, 100),
-  "gray-light":  map-get($gray-scale, 300),
-  "gray-base":   map-get($gray-scale, 500),
-  "gray-dark":   map-get($gray-scale, 700),
-  "gray-darker": map-get($gray-scale, 900)
+  "emerald-subtle": map.get($emerald-scale, 100),
+  "emerald-light":  map.get($emerald-scale, 300),
+  "emerald-base":   map.get($emerald-scale, 500),
+  "emerald-dark":   map.get($emerald-scale, 700),
+  "emerald-darker": map.get($emerald-scale, 900),
+
+  "gray-0": map.get($gray-scale, 00 ),
+  "gray-subtle": map.get($gray-scale, 100),
+  "gray-light":  map.get($gray-scale, 300),
+  "gray-base":   map.get($gray-scale, 500),
+  "gray-dark":   map.get($gray-scale, 700),
+  "gray-darker": map.get($gray-scale, 900)
 );
 
 @function text-color-token($name) {
-  @return map-get($text-tokens, $name);
+  @return map.get($text-tokens, $name);
 }
 
 @mixin text-color($name) {
@@ -115,8 +115,8 @@ $text-tokens: (
 }
 
 @function bg-token($family, $step) {
-  $scale: map-get($bg-scales, $family);
-  @return map-get($scale, $step);
+  $scale: map.get($bg-scales, $family);
+  @return map.get($scale, $step);
 }
 
 @mixin bg-color($family, $step) {
