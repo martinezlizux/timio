@@ -12516,6 +12516,10 @@ small,
   font-weight: 600;
 }
 
+.filter-dropdown .dropdown-menu {
+  min-width: 220px;
+}
+
 .modal-timio .modal-content {
   border-radius: 1.5rem;
   border: 1px solid rgba(31, 26, 61, 0.08);
