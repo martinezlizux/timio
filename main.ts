@@ -11,10 +11,8 @@ type TimeEntry = {
 };
 
 type FilterState = {
-  month: string;
-  startDate: string;
-  endDate: string;
-  client: string;
+  timeRange: '' | '1w' | '2w' | '3w' | '1m' | '2m' | '3m';
+  clients: string[];
 };
 
 type ThemeColors = {
@@ -42,8 +40,7 @@ const INITIAL_ENTRIES: TimeEntry[] = [
 ];
 
 let entries: TimeEntry[] = [...INITIAL_ENTRIES];
-let filter: FilterState = { month: '', startDate: '', endDate: '', client: '' };
-let dateFilterMode: 'month' | 'day' | 'range' = 'month';
+let filter: FilterState = { timeRange: '', clients: [] };
 let editingId: string | null = null;
 let theme: ThemeColors = { ...DEFAULT_THEME };
 
@@ -60,18 +57,23 @@ const setCSSTheme = (t: ThemeColors) => {
 const uid = () => Math.random().toString(36).slice(2, 9);
 
 const getFilteredEntries = () => {
+  const now = Date.now();
+  const rangeDays: Record<NonNullable<FilterState['timeRange']>, number> = {
+    '1w': 7,
+    '2w': 14,
+    '3w': 21,
+    '1m': 30,
+    '2m': 60,
+    '3m': 90,
+    '': 0
+  };
   const filtered = entries.filter(entry => {
-    const matchClient = filter.client ? entry.client === filter.client : true;
-    let matchDate = true;
-    if (dateFilterMode === 'month' && filter.month) {
-      matchDate = entry.date.startsWith(filter.month);
-    } else if (dateFilterMode === 'day' && filter.startDate) {
-      matchDate = entry.date === filter.startDate;
-    } else if (dateFilterMode === 'range' && filter.startDate && filter.endDate) {
-      matchDate = entry.date >= filter.startDate && entry.date <= filter.endDate;
-    }
+    const matchClient = filter.clients.length ? filter.clients.includes(entry.client) : true;
+    const days = rangeDays[filter.timeRange ?? ''] ?? 0;
+    const cutoff = days ? now - days * 24 * 60 * 60 * 1000 : 0;
+    const matchDate = cutoff ? entry.timestamp >= cutoff : true;
     return matchClient && matchDate;
-  }).sort((a, b) => b.date.localeCompare(a.date));
+  }).sort((a, b) => b.timestamp - a.timestamp);
 
   const totalHours = filtered.reduce((sum, e) => sum + e.hours, 0);
   const totalEarnings = filtered.reduce((sum, e) => sum + e.hours * e.rate, 0);
@@ -127,16 +129,18 @@ const renderLayout = () => {
           </div>
         </div>
 
-        <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
-          <div class="btn-group" role="group" aria-label="Filtro fechas">
-            <button type="button" id="btn-mode-month" class="btn btn-outline-primary btn-sm active">Mes</button>
-            <button type="button" id="btn-mode-day" class="btn btn-outline-primary btn-sm">Día</button>
-            <button type="button" id="btn-mode-range" class="btn btn-outline-primary btn-sm">Rango</button>
+        <div class="d-flex flex-wrap align-items-center gap-2 mb-3" id="filter-bar">
+          <div class="dropdown filter-dropdown">
+            <button id="filter-time-toggle" class="btn btn-outline-primary btn-sm dropdown-toggle" type="button" aria-expanded="false">
+              Tiempo: <span id="filter-time-label">Todos</span>
+            </button>
+            <div class="dropdown-menu shadow-sm p-3" id="filter-time-menu"></div>
           </div>
-          <div id="date-inputs" class="d-flex gap-2 flex-wrap"></div>
-          <div class="d-flex align-items-center gap-2">
-            <label class="text-muted small mb-0">Cliente</label>
-            <select id="filter-client" class="form-select form-select-sm" style="min-width:180px;"></select>
+          <div class="dropdown filter-dropdown">
+            <button id="filter-client-toggle" class="btn btn-outline-primary btn-sm dropdown-toggle" type="button" aria-expanded="false">
+              Cliente: <span id="filter-client-label">Todos</span>
+            </button>
+            <div class="dropdown-menu shadow-sm p-3" id="filter-client-menu" style="min-width:240px;"></div>
           </div>
           <button id="btn-clear-filters" class="btn btn-link text-danger btn-sm">Limpiar</button>
         </div>
@@ -251,70 +255,171 @@ const renderLayout = () => {
   `;
 };
 
-const renderFilters = () => {
-  const { filtered } = getFilteredEntries();
-  const clientSelect = document.getElementById('filter-client') as HTMLSelectElement | null;
-  if (!clientSelect) return;
-  const clients = Array.from(new Set(entries.map(e => e.client)));
-  clientSelect.innerHTML = `<option value="">Todos</option>` + clients.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
-  clientSelect.value = filter.client;
+const closeDropdowns = () => {
+  document.querySelectorAll<HTMLElement>('.filter-dropdown .dropdown-menu.show').forEach(menu => menu.classList.remove('show'));
+  document.querySelectorAll<HTMLButtonElement>('.filter-dropdown .dropdown-toggle').forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+};
 
-  const dateInputs = document.getElementById('date-inputs');
-  if (!dateInputs) return;
-  if (dateFilterMode === 'month') {
-    dateInputs.innerHTML = `<input id="filter-month" type="month" class="form-control form-control-sm" value="${filter.month}" />`;
-  } else if (dateFilterMode === 'day') {
-    dateInputs.innerHTML = `<input id="filter-day" type="date" class="form-control form-control-sm" value="${filter.startDate}" />`;
-  } else {
-    dateInputs.innerHTML = `
-      <input id="filter-start" type="date" class="form-control form-control-sm" value="${filter.startDate}" />
-      <input id="filter-end" type="date" class="form-control form-control-sm" value="${filter.endDate}" />
-    `;
+let dropdownCloserAttached = false;
+const initDropdownCloser = () => {
+  if (dropdownCloserAttached) return;
+  document.addEventListener('click', () => closeDropdowns());
+  dropdownCloserAttached = true;
+};
+
+const renderAppliedFilters = () => {
+  const chips = document.getElementById('s-filtros-aplicados');
+  if (!chips) return;
+  const timeLabels: Record<NonNullable<FilterState['timeRange']>, string> = {
+    '': 'Todos',
+    '1w': 'Última semana',
+    '2w': 'Últimas 2 semanas',
+    '3w': 'Últimas 3 semanas',
+    '1m': 'Último mes',
+    '2m': 'Últimos 2 meses',
+    '3m': 'Últimos 3 meses'
+  };
+
+  const chipParts: string[] = [];
+
+  if (filter.timeRange) {
+    chipParts.push(`
+      <span class="badge text-bg-primary filter-chip" data-chip="time">
+        <span class="small">Tiempo: ${timeLabels[filter.timeRange]}</span>
+        <button type="button" class="btn btn-link btn-sm p-0 m-0 text-white" data-remove="time" aria-label="Quitar filtro tiempo">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </span>
+    `);
   }
 
-  const modeButtons: Record<string, string> = {
-    'btn-mode-month': 'month',
-    'btn-mode-day': 'day',
-    'btn-mode-range': 'range'
-  };
-  Object.entries(modeButtons).forEach(([id, mode]) => {
-    const btn = document.getElementById(id);
-    if (btn) {
-      btn.classList.toggle('active', dateFilterMode === mode);
-    }
+  filter.clients.forEach(client => {
+    chipParts.push(`
+      <span class="badge text-bg-primary filter-chip" data-chip="client-${client}">
+        <span class="small">Cliente: ${escapeHtml(client)}</span>
+        <button type="button" class="btn btn-link btn-sm p-0 m-0 text-white" data-remove-client="${escapeHtml(client)}" aria-label="Quitar cliente ${escapeHtml(client)}">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </span>
+    `);
   });
 
-  // Attach events
-  clientSelect.onchange = (e) => {
-    filter.client = (e.target as HTMLSelectElement).value;
-    renderAll();
-  };
-  if (dateFilterMode === 'month') {
-    const monthInput = document.getElementById('filter-month') as HTMLInputElement | null;
-    if (monthInput) monthInput.onchange = e => {
-      filter.month = (e.target as HTMLInputElement).value;
-      renderAll();
-    };
-  } else if (dateFilterMode === 'day') {
-    const dayInput = document.getElementById('filter-day') as HTMLInputElement | null;
-    if (dayInput) dayInput.onchange = e => {
-      const val = (e.target as HTMLInputElement).value;
-      filter.startDate = val;
-      filter.endDate = val;
-      renderAll();
-    };
+  if (!chipParts.length) {
+    chips.innerHTML = `<span class="text-muted small">Sin filtros aplicados</span>`;
   } else {
-    const startInput = document.getElementById('filter-start') as HTMLInputElement | null;
-    const endInput = document.getElementById('filter-end') as HTMLInputElement | null;
-    if (startInput) startInput.onchange = e => {
-      filter.startDate = (e.target as HTMLInputElement).value;
+    chips.innerHTML = chipParts.join('');
+    chips.querySelectorAll('[data-remove="time"]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        filter.timeRange = '';
+        renderAll();
+      });
+    });
+    chips.querySelectorAll<HTMLButtonElement>('[data-remove-client]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const value = btn.dataset.removeClient;
+        filter.clients = filter.clients.filter(c => c !== value);
+        renderAll();
+      });
+    });
+  }
+};
+
+const renderFilters = () => {
+  const timeMenu = document.getElementById('filter-time-menu');
+  const timeLabel = document.getElementById('filter-time-label');
+  const clientMenu = document.getElementById('filter-client-menu');
+  const clientLabel = document.getElementById('filter-client-label');
+  if (!timeMenu || !clientMenu || !timeLabel || !clientLabel) return;
+
+  const timeOptions: { value: FilterState['timeRange']; label: string }[] = [
+    { value: '', label: 'Todos' },
+    { value: '1w', label: 'Última semana' },
+    { value: '2w', label: 'Últimas 2 semanas' },
+    { value: '3w', label: 'Últimas 3 semanas' },
+    { value: '1m', label: 'Último mes' },
+    { value: '2m', label: 'Últimos 2 meses' },
+    { value: '3m', label: 'Últimos 3 meses' }
+  ];
+
+  timeMenu.innerHTML = timeOptions.map(opt => `
+    <div class="form-check mb-1">
+      <input class="form-check-input" type="radio" name="time-range" id="time-${opt.value || 'all'}" value="${opt.value}" ${filter.timeRange === opt.value ? 'checked' : ''}>
+      <label class="form-check-label" for="time-${opt.value || 'all'}">${opt.label}</label>
+    </div>
+  `).join('');
+  timeLabel.textContent = timeOptions.find(o => o.value === filter.timeRange)?.label || 'Todos';
+
+  const clients = Array.from(new Set(entries.map(e => e.client)));
+  filter.clients = filter.clients.filter(c => clients.includes(c));
+  clientMenu.innerHTML = `
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="checkbox" id="client-all" ${filter.clients.length === 0 ? 'checked' : ''}>
+      <label class="form-check-label" for="client-all">Todos</label>
+    </div>
+    ${clients.map(c => `
+      <div class="form-check mb-1">
+        <input class="form-check-input" type="checkbox" id="client-${c.toLowerCase().replace(/[^a-z0-9]+/g, '-') || 'item'}" value="${escapeHtml(c)}" ${filter.clients.includes(c) ? 'checked' : ''}>
+        <label class="form-check-label" for="client-${c.toLowerCase().replace(/[^a-z0-9]+/g, '-') || 'item'}">${escapeHtml(c)}</label>
+      </div>
+    `).join('')}
+  `;
+  if (filter.clients.length === 0) {
+    clientLabel.textContent = 'Todos';
+  } else if (filter.clients.length === 1) {
+    clientLabel.textContent = filter.clients[0];
+  } else {
+    clientLabel.textContent = `${filter.clients.length} seleccionados`;
+  }
+
+  timeMenu.querySelectorAll<HTMLInputElement>('input[name="time-range"]').forEach(input => {
+    input.onchange = (e) => {
+      const val = (e.target as HTMLInputElement).value as FilterState['timeRange'];
+      filter.timeRange = val;
       renderAll();
     };
-    if (endInput) endInput.onchange = e => {
-      filter.endDate = (e.target as HTMLInputElement).value;
-      renderAll();
+  });
+
+  const clientAll = document.getElementById('client-all') as HTMLInputElement | null;
+  if (clientAll) {
+    clientAll.onchange = (e) => {
+      if ((e.target as HTMLInputElement).checked) {
+        filter.clients = [];
+        renderAll();
+      }
     };
   }
+  clientMenu.querySelectorAll<HTMLInputElement>('input[type="checkbox"]').forEach(input => {
+    if (input.id === 'client-all') return;
+    input.onchange = (e) => {
+      const value = (e.target as HTMLInputElement).value;
+      if ((e.target as HTMLInputElement).checked) {
+        filter.clients = Array.from(new Set([...filter.clients, value]));
+      } else {
+        filter.clients = filter.clients.filter(c => c !== value);
+      }
+      if (clientAll) clientAll.checked = filter.clients.length === 0;
+      renderAll();
+    };
+  });
+
+  const dropdowns = [
+    { buttonId: 'filter-time-toggle', menuId: 'filter-time-menu' },
+    { buttonId: 'filter-client-toggle', menuId: 'filter-client-menu' }
+  ];
+  dropdowns.forEach(({ buttonId, menuId }) => {
+    const btn = document.getElementById(buttonId);
+    const menu = document.getElementById(menuId);
+    if (!btn || !menu) return;
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      closeDropdowns();
+      menu.classList.toggle('show');
+      btn.setAttribute('aria-expanded', menu.classList.contains('show') ? 'true' : 'false');
+    };
+    menu.onclick = (e) => e.stopPropagation();
+  });
+  initDropdownCloser();
+  renderAppliedFilters();
 };
 
 const renderTable = () => {
@@ -477,25 +582,6 @@ const bindGlobalActions = () => {
   const btnAnalyze = document.getElementById('btn-analyze');
   if (btnAnalyze) btnAnalyze.onclick = handleAnalyzeAI;
 
-  const btnClear = document.getElementById('btn-clear-filters');
-  if (btnClear) btnClear.onclick = () => {
-    filter = { month: '', startDate: '', endDate: '', client: '' };
-    renderAll();
-  };
-
-  const modeMap: Record<string, 'month' | 'day' | 'range'> = {
-    'btn-mode-month': 'month',
-    'btn-mode-day': 'day',
-    'btn-mode-range': 'range'
-  };
-  Object.entries(modeMap).forEach(([id, mode]) => {
-    const btn = document.getElementById(id);
-    if (btn) btn.onclick = () => {
-      dateFilterMode = mode;
-      renderAll();
-    };
-  });
-
   const btnTheme = document.getElementById('btn-theme-panel');
   const panel = document.getElementById('theme-panel');
   const close = document.getElementById('theme-close');
@@ -543,6 +629,13 @@ const openModal = (entry?: TimeEntry) => {
   }
   modal.style.display = 'block';
   modal.classList.add('show');
+  const existingOverlay = document.getElementById('modal-overlay');
+  const overlay = existingOverlay || document.createElement('div');
+  overlay.id = 'modal-overlay';
+  overlay.className = 'modal-backdrop-timio';
+  if (!existingOverlay) document.body.appendChild(overlay);
+  requestAnimationFrame(() => overlay.classList.add('visible'));
+  document.body.classList.add('modal-open-timio');
 };
 
 const closeModal = () => {
@@ -550,6 +643,12 @@ const closeModal = () => {
   if (!modal) return;
   modal.style.display = 'none';
   modal.classList.remove('show');
+  const overlay = document.getElementById('modal-overlay');
+  if (overlay) {
+    overlay.classList.remove('visible');
+    setTimeout(() => overlay.remove(), 200);
+  }
+  document.body.classList.remove('modal-open-timio');
 };
 
 const bindModal = () => {
@@ -566,12 +665,13 @@ const bindModal = () => {
       const hours = parseFloat((document.getElementById('form-hours') as HTMLInputElement).value) || 0;
       const rate = parseFloat((document.getElementById('form-rate') as HTMLInputElement).value) || 0;
       const description = (document.getElementById('form-description') as HTMLTextAreaElement).value;
+      const dateTimestamp = new Date(date).getTime() || Date.now();
       if (!client || !date) return;
 
       if (editingId) {
-        entries = entries.map(en => en.id === editingId ? { ...en, client, date, hours, rate, description, timestamp: Date.now() } : en);
+        entries = entries.map(en => en.id === editingId ? { ...en, client, date, hours, rate, description, timestamp: dateTimestamp } : en);
       } else {
-        entries = [{ id: uid(), client, date, hours, rate, description, timestamp: Date.now() }, ...entries];
+        entries = [{ id: uid(), client, date, hours, rate, description, timestamp: dateTimestamp }, ...entries];
       }
       closeModal();
       renderAll();
@@ -767,8 +867,8 @@ const handleFileUpload = (e: Event) => {
   reader.onload = () => {
     alert(`Archivo "${file.name}" cargado. (Simulación: se añaden 2 registros)`);
     const mock: TimeEntry[] = [
-      { id: uid(), client: 'Importado Inc', date: '2023-12-01', hours: 4, rate: 45, description: 'Datos importados', timestamp: Date.now() },
-      { id: uid(), client: 'Importado Inc', date: '2023-12-02', hours: 2, rate: 45, description: 'Datos importados vol 2', timestamp: Date.now() }
+      { id: uid(), client: 'Importado Inc', date: '2023-12-01', hours: 4, rate: 45, description: 'Datos importados', timestamp: new Date('2023-12-01').getTime() },
+      { id: uid(), client: 'Importado Inc', date: '2023-12-02', hours: 2, rate: 45, description: 'Datos importados vol 2', timestamp: new Date('2023-12-02').getTime() }
     ];
     entries = [...mock, ...entries];
     renderAll();

@@ -122,38 +122,68 @@
           <h1 class="h3 mb-1">Timio Design System – Theme Preview</h1>
           <p class="text-muted mb-0">Playground de colores, tipografía y componentes</p>
         </div>
-        <button id="theme-toggle" class="theme-toggle">
-          <span id="theme-label">Light 🌞</span>
-        </button>
+        <div class="d-flex gap-2">
+          <button id="btn-theme-panel" class="theme-toggle">Panel de tema</button>
+          <button id="theme-toggle" class="theme-toggle">
+            <span id="theme-label">Light 🌞</span>
+          </button>
+        </div>
       </header>
 
       <!-- Typography -->
       <section class="section" id="typography">
-        <h2 class="h4 mb-3">Tipografía</h2>
-        <div class="row g-3">
-          <div class="col-md-6">
-            <div class="playground-card">
-              <h1 class="mb-2">h1 – 32px</h1>
-              <h2 class="mb-2">h2 – 28px</h2>
-              <h3 class="mb-2">h3 – 24px</h3>
-              <h4 class="mb-2">h4 – 20px</h4>
-              <h5 class="mb-2">h5 – 18px</h5>
-              <h6 class="mb-2">h6 – 16px</h6>
-              <p class="lead mb-2">Lead text – enfatiza un poco más.</p>
-              <p class="mb-1">Body – 16px texto regular.</p>
-              <small class="text-muted">Small / muted</small>
+        <h2 class="h4 mb-3">Tamaños Tipográficos</h2>
+        <div class="playground-card mb-4">
+          <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-3">
+            <div>
+              <div class="smaller text-muted mb-1 text-uppercase">Timio Design System</div>
+              <h3 class="title-lg mb-1">Sistema tipográfico oficial</h3>
+              <p class="body text-muted mb-0">Escala mobile-first en rem pensada para dashboards y formularios de registro de tiempo.</p>
+            </div>
+            <div class="text-md-end">
+              <div class="small text-muted">Fuente: Inter · Base: 1rem (16px)</div>
+              <div class="smaller text-muted">Headings 700 · Body 400 · Alturas: 1.2 / 1.5</div>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="playground-card">
-              <p class="text-purple-base mb-1">.text-purple-base</p>
-              <p class="text-purple-subtle mb-1">.text-purple-subtle</p>
-              <p class="text-purple-darker mb-1">.text-purple-darker</p>
-              <p class="text-green-base mb-1">.text-green-base</p>
-              <p class="text-green-subtle mb-1">.text-green-subtle</p>
-              <p class="text-gray-base mb-1">.text-gray-base</p>
-              <p class="text-gray-subtle mb-1">.text-gray-subtle</p>
-              <p class="text-gray-darker mb-0">.text-gray-darker</p>
+
+          <div class="row g-4">
+            <div class="col-lg-6 d-flex flex-column gap-3">
+              <div>
+                <div class="display-xl mb-1">Display XL / H1 — Dashboard Timio</div>
+                <p class="text-muted small mb-0">Desktop 2.99rem · Mobile 2.49rem · peso 700 · lh 1.2</p>
+              </div>
+              <div>
+                <div class="display-lg mb-1">Display LG / H2 — Reportes y análisis</div>
+                <p class="text-muted small mb-0">Desktop 2.49rem · Mobile 2.07rem · peso 700 · lh 1.2</p>
+              </div>
+              <div>
+                <div class="display-md mb-1">Display MD / H3 — Horas de hoy</div>
+                <p class="text-muted small mb-0">Desktop 2.07rem · Mobile 1.73rem · peso 700 · lh 1.2</p>
+              </div>
+              <div>
+                <div class="title-lg mb-1">Title LG / H4 — Progreso semanal</div>
+                <p class="text-muted small mb-0">1.73rem · peso 700 · lh 1.2</p>
+              </div>
+            </div>
+
+            <div class="col-lg-6 d-flex flex-column gap-3">
+              <div>
+                <div class="title-md mb-1">Title MD / H5 — Proyecto Aurora</div>
+                <p class="text-muted small mb-0">1.44rem · peso 700 · lh 1.2</p>
+              </div>
+              <div>
+                <div class="title-sm mb-1">Title SM / H6 — Tarifa por hora</div>
+                <p class="text-muted small mb-0">1.2rem · peso 700 · lh 1.2</p>
+              </div>
+              <div>
+                <p class="body mb-1">Body — Texto base para formularios, tablas y descripciones de tareas.</p>
+                <p class="text-muted small mb-0">1rem · peso 400 · lh 1.5</p>
+              </div>
+              <div>
+                <p class="small mb-1">Small — Meta del sprint: +8% horas facturables.</p>
+                <p class="smaller mb-2">Smaller — Ayuda contextual y notas en tooltips.</p>
+                <p class="text-muted smaller mb-0">Muted — Para estados secundarios y soporte.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -436,12 +466,66 @@
       </section>
     </div>
 
+    <div id="theme-panel" class="card-soft p-3 position-fixed" style="right:16px; bottom:16px; width:260px; display:none; z-index:50;">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <strong>Tema</strong>
+        <button id="theme-close" class="btn btn-sm btn-outline-secondary">Cerrar</button>
+      </div>
+      <div class="d-grid gap-2">
+        <label class="small d-flex justify-content-between align-items-center">
+          <span class="text-capitalize">bg</span>
+          <input data-theme-key="bg" type="color" value="#B8B8FF" class="form-control form-control-color" />
+        </label>
+        <label class="small d-flex justify-content-between align-items-center">
+          <span class="text-capitalize">text</span>
+          <input data-theme-key="text" type="color" value="#1F1A3D" class="form-control form-control-color" />
+        </label>
+        <label class="small d-flex justify-content-between align-items-center">
+          <span class="text-capitalize">primary</span>
+          <input data-theme-key="primary" type="color" value="#1F1A3D" class="form-control form-control-color" />
+        </label>
+        <label class="small d-flex justify-content-between align-items-center">
+          <span class="text-capitalize">secondary</span>
+          <input data-theme-key="secondary" type="color" value="#D4E72C" class="form-control form-control-color" />
+        </label>
+        <label class="small d-flex justify-content-between align-items-center">
+          <span class="text-capitalize">accent</span>
+          <input data-theme-key="accent" type="color" value="#E0E0FF" class="form-control form-control-color" />
+        </label>
+        <label class="small d-flex justify-content-between align-items-center">
+          <span class="text-capitalize">muted</span>
+          <input data-theme-key="muted" type="color" value="#FEFEF0" class="form-control form-control-color" />
+        </label>
+      </div>
+    </div>
+
     <script>
       (function () {
         const body = document.body;
         const toggle = document.getElementById('theme-toggle');
         const label = document.getElementById('theme-label');
         const key = 'timio-theme';
+        const themePanel = document.getElementById('theme-panel');
+        const btnThemePanel = document.getElementById('btn-theme-panel');
+        const themeClose = document.getElementById('theme-close');
+
+        const setCSSTheme = (vars) => {
+          const root = document.documentElement;
+          Object.entries(vars).forEach(([k, v]) => {
+            root.style.setProperty(`--timio-${k}`, v);
+          });
+        };
+
+        const themeDefaults = {
+          bg: '#B8B8FF',
+          text: '#1F1A3D',
+          primary: '#1F1A3D',
+          secondary: '#D4E72C',
+          accent: '#E0E0FF',
+          muted: '#FEFEF0'
+        };
+        setCSSTheme(themeDefaults);
+
         const stored = localStorage.getItem(key);
         if (stored === 'dark' || stored === 'light') {
           body.setAttribute('data-theme', stored);
@@ -454,6 +538,18 @@
           localStorage.setItem(key, next);
           label.textContent = next === 'dark' ? 'Dark 🌙' : 'Light 🌞';
         });
+
+        if (btnThemePanel && themePanel) btnThemePanel.addEventListener('click', () => { themePanel.style.display = 'block'; });
+        if (themeClose && themePanel) themeClose.addEventListener('click', () => { themePanel.style.display = 'none'; });
+        if (themePanel) {
+          themePanel.querySelectorAll('input[data-theme-key]').forEach(input => {
+            input.addEventListener('input', (e) => {
+              const keyInput = e.target.dataset.themeKey;
+              const value = e.target.value;
+              setCSSTheme({ [keyInput]: value });
+            });
+          });
+        }
       })();
     </script>
   </body>

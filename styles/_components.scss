@@ -49,12 +49,14 @@ $danger: #ff5f5f;
 }
 
 .filter-chip {
-  background: var(--color-bg-primary-ghost, #f7f5fc);
-  border: 1px solid var(--color-bg-primary-subtle, #f0ecf8);
-  border-radius: 999px;
-  padding: 0.45rem 1rem;
-  font-weight: 700;
-  color: var(--color-text-primary-base, #3c2a68);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 600;
+}
+
+.filter-dropdown .dropdown-menu {
+  min-width: 220px;
 }
 
 .modal-timio .modal-content {
@@ -208,4 +210,28 @@ $danger: #ff5f5f;
   height: auto;
   aspect-ratio: 1 / 1;
   display: inline-block;
+}
+
+.modal-backdrop-timio {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 19, 33, 0.48);
+  backdrop-filter: blur(1px);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 1040;
+}
+
+.modal-backdrop-timio.visible {
+  opacity: 1;
+}
+
+body.modal-open-timio {
+  overflow: hidden;
+}
+
+#s-filtros-aplicados {
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    padding: 10px;
 }
