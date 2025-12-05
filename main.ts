@@ -130,7 +130,8 @@ const renderLayout = () => {
         </div>
 
         <div class="d-flex flex-wrap align-items-center gap-2 mb-3" id="filter-bar">
-          <div class="dropdown filter-dropdown">
+          <div class="dropdown filter-dropdown d-flex align-items-center gap-2">
+            <i class="fa-solid fa-filter text-muted"></i>
             <button id="filter-time-toggle" class="btn btn-outline-primary btn-sm dropdown-toggle" type="button" aria-expanded="false">
               Tiempo: <span id="filter-time-label">Todos</span>
             </button>
@@ -142,18 +143,24 @@ const renderLayout = () => {
             </button>
             <div class="dropdown-menu shadow-sm p-3" id="filter-client-menu" style="min-width:240px;"></div>
           </div>
-          <button id="btn-clear-filters" class="btn btn-link text-danger btn-sm">Limpiar</button>
         </div>
 
         <div class="d-flex flex-wrap gap-2 mb-3">
-          <button id="btn-new" class="btn btn-soft-primary">+ Nueva entrada</button>
-          <button id="btn-export-csv" class="btn btn-outline-primary btn-soft">Exportar CSV</button>
-          <button id="btn-export-pdf" class="btn btn-outline-primary btn-soft">Exportar PDF</button>
+          <button id="btn-new" class="btn btn-soft-primary"><i class="fa-solid fa-plus me-1"></i> Nueva entrada</button>
+          <button id="btn-copy" class="btn btn-link-primary" title="Copiar tabla">
+            <i class="fa-solid fa-copy me-1"></i> Copiar
+          </button>
+          <button id="btn-export-csv" class="btn btn-outline-primary btn-soft">
+            <i class="fa-solid fa-file-export me-1"></i> Exportar CSV
+          </button>
+          <button id="btn-export-pdf" class="btn btn-outline-primary btn-soft">
+            <i class="fa-solid fa-file-pdf me-1"></i> Exportar PDF
+          </button>
           <label class="btn btn-outline-secondary btn-soft mb-0">
-            Importar
+            <i class="fa-solid fa-file-import me-1"></i> Importar
             <input id="file-upload" type="file" accept=".csv,.xlsx" hidden />
           </label>
-          <button id="btn-analyze" class="btn btn-outline-success btn-soft">Analizar con AI</button>
+          <button id="btn-analyze" class="btn btn-outline-success btn-soft"><i class="fa-solid fa-wand-magic-sparkles me-1"></i> Analizar con AI</button>
         </div>
 
         <div class="card-soft mb-4">
