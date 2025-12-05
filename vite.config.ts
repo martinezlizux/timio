@@ -7,6 +7,10 @@ export default defineConfig({
     port: 3000,
     host: '0.0.0.0',
   },
+  build: {
+    outDir: 'docs',
+    emptyOutDir: true,
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, '.'),
