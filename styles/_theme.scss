@@ -34,8 +34,8 @@ body {
   line-height: var(--line-height-body);
   font-weight: var(--font-weight-body);
   min-height: 100vh;
-  background: radial-gradient(circle at 20% 20%, var(--color-bg-secondary-ghost, #f4f3ff) 0, var(--color-bg-secondary-subtle, #e8e6ff) 40%, var(--color-bg-surface-base, #fbf8ec) 80%);
-  color: var(--color-purple-900, #271f4b);
+  background: var(--color-surface-primary-subtle, #FAF5FF);
+  color: var(--color-text-default, #0F172A);
 }
 
 h1,
@@ -121,13 +121,7 @@ small,
 
 .timio-app {
   min-height: 100vh;
-  background: linear-gradient(
-    120deg,
-    var(--color-bg-primary-ghost, #f7f5fc) 0%,
-    var(--color-bg-surface-base, #fbf8ec) 25%,
-    var(--color-bg-surface-base, #fbf8ec) 75%,
-    var(--color-bg-primary-subtle, #f0ecf8) 100%
-  );
+  background: var(--color-surface-primary-subtle, #FAF5FF);
 }
 
 .card-soft {
@@ -158,6 +152,13 @@ small,
   font-size: 14px;
 }
 
+.table-timio th,
+.table-timio td {
+  vertical-align: middle;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+}
+
 .table-timio thead th {
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -179,30 +180,30 @@ small,
 
 .btn-soft-primary {
   @extend .btn-soft;
-  background: var(--color-bg-primary-base, #3c2a68);
+  background: var(--color-bg-primary-base, #9333EA);
   color: #fff;
 
   &:hover {
-    background: var(--color-bg-primary-darker, #2f1f52);
+    background: var(--color-bg-primary-darker, #7E22CE);
     color: #fff;
-    box-shadow: 0 12px 30px rgba(31, 26, 61, 0.25);
+    box-shadow: 0 12px 30px rgba(147, 51, 234, 0.25);
   }
 }
 
 .btn-soft-secondary {
   @extend .btn-soft;
-  background: var(--color-bg-accent-base, #d8e86a);
-  color: var(--color-text-primary-base, #3c2a68);
+  background: var(--color-bg-accent-base, #BEF264);
+  color: var(--color-text-accent-dark, #3F6212);
 
   &:hover {
-    background: var(--color-bg-accent-darker, #bcce4e);
-    color: var(--color-text-primary-base, #3c2a68);
-    box-shadow: 0 12px 30px rgba(212, 231, 44, 0.3);
+    background: var(--color-bg-accent-darker, #84CC16);
+    color: var(--color-text-accent-dark, #3F6212);
+    box-shadow: 0 12px 30px rgba(190, 242, 100, 0.3);
   }
 }
 
 .summary-row {
-  background: var(--color-bg-primary-ghost, #f7f5fc);
-  border-top: 1px solid var(--color-bg-primary-subtle, #f0ecf8);
-  color: var(--color-text-primary-base, #3c2a68);
+  background: var(--color-bg-primary-ghost, #FAF5FF);
+  border-top: 1px solid var(--color-bg-primary-subtle, #FAF5FF);
+  color: var(--color-text-primary-base, #9333EA);
 }

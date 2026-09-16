@@ -1,90 +1,115 @@
 @use "sass:map";
 
-// Primitive scales
+// Primitive scales aligned to Figma Primitives / Color
 $purple-scale: (
-  100: #F1EEFB,
-  200: #DCD2F7,
-  300: #C7B8F4,
-  400: #AB94E8,
-  500: #6F5ACF,
-  600: #5F4CAF,
-  700: #4B3C8C,
-  800: #3A2F6D,
-  900: #271F4B
+  50:  #FAF5FF,
+  100: #F3E8FF,
+  200: #E9D5FF,
+  300: #D8B4FE,
+  400: #C084FC,
+  500: #A855F7,
+  600: #9333EA,
+  700: #7E22CE,
+  800: #6B21A8,
+  900: #581C87,
+  950: #3B0764
 );
 
-$green-scale: (
-  100: #F8FDE8,
-  200: #EFFBCA,
-  300: #E6F8AA,
-  400: #DDF58A,
-  500: #D4F26A,
-  600: #A3BC50,
-  700: #738536,
-  800: #434E1C,
-  900: #131702
+$lime-scale: (
+  50:  #F7FEE7,
+  100: #ECFCC1,
+  200: #D9F99D,
+  300: #BEF264,
+  400: #A3E635,
+  500: #84CC16,
+  600: #65A30D,
+  700: #4D7C0F,
+  800: #3F6212,
+  900: #365314,
+  950: #1A2E05
 );
 
 $orange-scale: (
-  100: #FEF2E7,
-  200: #FBDAB7,
-  300: #F8C086,
-  400: #F5A655,
-  500: #F28C24,
-  600: #BD6D1C,
-  700: #864D13,
-  800: #4F2D0A,
-  900: #180D01
+  50:  #FFF7ED,
+  100: #FFEDD5,
+  200: #FED7AA,
+  300: #FDBA74,
+  400: #FB923C,
+  500: #F97316,
+  600: #EA580C,
+  700: #C2410C,
+  800: #9A3412,
+  900: #7C2D12
 );
 
 $emerald-scale: (
-  100: #EBF9F8,
-  200: #C3EEEB,
-  300: #9CE3DE,
-  400: #75D8D1,
-  500: #4ECDC4,
-  600: #3C9E97,
-  700: #2A706B,
-  800: #18423F,
-  900: #061413
+  50:  #ECFDF5,
+  100: #D1FAE5,
+  200: #A7F3D0,
+  300: #6EE7B7,
+  400: #34D399,
+  500: #10B981,
+  600: #059669,
+  700: #047857,
+  800: #065F46,
+  900: #064E3B
 );
 
-$gray-scale: (
-  00: #FFFFFF,
-  100: #F1F2F4,
-  200: #D7DADF,
-  300: #BEC2CB,
-  400: #A5AAB7,
-  500: #8C92A3,
-  600: #6B727D,
-  700: #4B5058,
-  800: #2B2E33,
-  900: #0B0C0E
+$red-scale: (
+  50:  #FEF2F2,
+  100: #FEE2E2,
+  200: #FECACA,
+  300: #FCA5A5,
+  400: #F87171,
+  500: #EF4444,
+  600: #DC2626,
+  700: #B91C1C,
+  800: #991B1B,
+  900: #7F1D1D
 );
+
+$slate-scale: (
+  0:   #FFFFFF,
+  50:  #F8FAFC,
+  100: #F1F5F9,
+  200: #E2E8F0,
+  300: #CBD5E1,
+  400: #94A3B8,
+  500: #64748B,
+  600: #475569,
+  700: #334155,
+  800: #1E293B,
+  900: #0F172A,
+  950: #020617
+);
+
+// Backward aliases
+$green-scale: $lime-scale;
+$gray-scale: $slate-scale;
 
 // Background scales map
 $bg-scales: (
   "primary": $purple-scale,
-  "secondary": $green-scale,
+  "secondary": $lime-scale,
   "tertiary": $orange-scale,
   "emerald": $emerald-scale,
-  "neutral": $gray-scale
+  "red": $red-scale,
+  "neutral": $slate-scale
 );
 
-// Text semantic tokens (subtle, light, base, dark, darker)
+// Text semantic tokens
 $text-tokens: (
   "purple-subtle":  map.get($purple-scale, 100),
   "purple-light":   map.get($purple-scale, 300),
-  "purple-base":    map.get($purple-scale, 500),
-  "purple-dark":    map.get($purple-scale, 700),
-  "purple-darker":  map.get($purple-scale, 900),
+  "purple-base":    map.get($purple-scale, 600),
+  "purple-dark":    map.get($purple-scale, 800),
+  "purple-darker":  map.get($purple-scale, 950),
 
-  "green-subtle": map.get($green-scale, 100),
-  "green-light":  map.get($green-scale, 300),
-  "green-base":   map.get($green-scale, 500),
-  "green-dark":   map.get($green-scale, 700),
-  "green-darker": map.get($green-scale, 900),
-
+  "green-subtle": map.get($lime-scale, 100),
+  "green-light":  map.get($lime-scale, 300),
+  "green-base":   map.get($lime-scale, 600),
+  "green-dark":   map.get($lime-scale, 700),
+  "green-darker": map.get($lime-scale, 900),
 
   "orange-subtle": map.get($orange-scale, 100),
   "orange-light":  map.get($orange-scale, 300),
@@ -98,12 +123,18 @@ $text-tokens: (
   "emerald-dark":   map.get($emerald-scale, 700),
   "emerald-darker": map.get($emerald-scale, 900),
 
-  "gray-0": map.get($gray-scale, 00 ),
-  "gray-subtle": map.get($gray-scale, 100),
-  "gray-light":  map.get($gray-scale, 300),
-  "gray-base":   map.get($gray-scale, 500),
-  "gray-dark":   map.get($gray-scale, 700),
-  "gray-darker": map.get($gray-scale, 900)
+  "red-subtle": map.get($red-scale, 100),
+  "red-light":  map.get($red-scale, 300),
+  "red-base":   map.get($red-scale, 500),
+  "red-dark":   map.get($red-scale, 700),
+  "red-darker": map.get($red-scale, 900),
+
+  "gray-0": map.get($slate-scale, 0),
+  "gray-subtle": map.get($slate-scale, 100),
+  "gray-light":  map.get($slate-scale, 300),
+  "gray-base":   map.get($slate-scale, 500),
+  "gray-dark":   map.get($slate-scale, 700),
+  "gray-darker": map.get($slate-scale, 900)
 );
 
 @function text-color-token($name) {

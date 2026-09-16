@@ -1,23 +1,26 @@
+@use "sass:map";
+@use "colors" as *;
+
 $font-family-sans-serif: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 $font-size-base: 1rem;
 $headings-font-weight: 700;
 $headings-line-height: 1.2;
 $line-height-base: 1.5;
 
-// Base brand colors for Sass (align with color-tokens)
-$primary: #6F5ACF;
-$secondary: #D8E86A;
-$gray-base: #A3A3B5;
+// Base brand colors for Sass (referenced from _colors.scss primitive scales)
+$primary:   map.get($purple-scale, 600);
+$secondary: map.get($lime-scale, 300);
+$gray-base: map.get($slate-scale, 500);
 
-$success: #4ECDC4;
-$info: #4ECDC4;
-$warning: #FF9F1C;
-$danger: #FF5F5F;
-$light: #FEFEF0;
-$dark: #1A1A2F;
+$success: map.get($emerald-scale, 500);
+$info:    #0284C7;
+$warning: map.get($orange-scale, 500);
+$danger:  map.get($red-scale, 500);
+$light:   map.get($slate-scale, 50);
+$dark:    map.get($slate-scale, 900);
 
-$body-bg: #F6F6F9;
-$body-color: #1F1F1F;
+$body-bg:    map.get($purple-scale, 50);
+$body-color: map.get($slate-scale, 900);
 $border-radius-lg: 1.5rem;
 $border-radius: 1rem;
 $btn-border-radius: 999px;

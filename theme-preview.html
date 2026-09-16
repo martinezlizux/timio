@@ -115,9 +115,9 @@
     </style>
   </head>
   <body data-theme="light">
-    <div class="container py-4" style="max-width: 1200px;">
+    <div class="container py-4 theme-preview-container">
       <!-- Header -->
-      <header class="d-flex align-items-center justify-content-between mb-4 p-3 rounded-4 shadow-sm" style="background: var(--color-bg-surface, #fff); border:1px solid var(--color-bg-neutral-ghost,#f6f6f9);">
+      <header class="d-flex align-items-center justify-content-between mb-4 p-3 rounded-4 shadow-sm theme-preview-header">
         <div>
           <h1 class="h3 mb-1">Timio Design System – Theme Preview</h1>
           <p class="text-muted mb-0">Playground de colores, tipografía y componentes</p>
@@ -254,22 +254,22 @@
         <div class="playground-card">
           <p class="text-muted mb-3">Text (usa .text-*)</p>
           <div class="row g-3">
-            <div class="col-md-3"><div class="semantic-swatch text-purple-base" style="background: var(--color-gray-00);">.text-purple-base<small>→ var(--color-purple-500)</small></div></div>
-            <div class="col-md-3"><div class="semantic-swatch text-purple-dark" style="background: var(--color-gray-00);">.text-purple-dark<small>→ var(--color-purple-700)</small></div></div>
-            <div class="col-md-3"><div class="semantic-swatch text-purple-darker" style="background: var(--color-gray-00);">.text-purple-darker<small>→ var(--color-purple-900)</small></div></div>
-            <div class="col-md-3"><div class="semantic-swatch text-green-base" style="background: var(--color-gray-00);">.text-green-base<small>→ var(--color-green-500)</small></div></div>
-            <div class="col-md-3"><div class="semantic-swatch text-green-dark" style="background: var(--color-gray-00);">.text-green-dark<small>→ var(--color-green-700)</small></div></div>
-            <div class="col-md-3"><div class="semantic-swatch text-orange-base" style="background: var(--color-gray-00);">.text-orange-base<small>→ var(--color-orange-500)</small></div></div>
-            <div class="col-md-3"><div class="semantic-swatch text-orange-dark" style="background: var(--color-gray-00);">.text-orange-dark<small>→ var(--color-orange-700)</small></div></div>
-            <div class="col-md-3"><div class="semantic-swatch text-gray-base" style="background: var(--color-gray-00);">.text-gray-base<small>→ var(--color-gray-500)</small></div></div>
-            <div class="col-md-3"><div class="semantic-swatch text-gray-darker" style="background: var(--color-gray-00);">.text-gray-darker<small>→ var(--color-gray-900)</small></div></div>
-            <div class="col-md-3"><div class="semantic-swatch text-on-primary" style="background: var(--color-purple-500);">.text-on-primary<small>#FFFFFF</small></div></div>
-            <div class="col-md-3"><div class="semantic-swatch text-on-secondary" style="background: var(--color-green-500);">.text-on-secondary<small>#1F1F1F</small></div></div>
-            <div class="col-md-3"><div class="semantic-swatch text-on-tertiary" style="background: var(--color-orange-500);">.text-on-tertiary<small>#1F1F1F</small></div></div>
-            <div class="col-md-3"><div class="semantic-swatch text-on-neutral" style="background: var(--color-gray-900);">.text-on-neutral<small>#FFFFFF</small></div></div>
-          <div class="col-md-3"><div class="semantic-swatch text-color-base" style="background: var(--color-gray-00);">.text-color-base<small>→ default brand</small></div></div>
-          <div class="col-md-3"><div class="semantic-swatch text-color-light" style="background: var(--color-gray-00);">.text-color-light<small>→ brand light</small></div></div>
-          <div class="col-md-3"><div class="semantic-swatch text-color-dark" style="background: var(--color-gray-00);">.text-color-dark<small>→ brand dark</small></div></div>
+            <div class="col-md-3"><div class="semantic-swatch text-purple-base bg-neutral-00">.text-purple-base<small>→ var(--color-purple-600)</small></div></div>
+            <div class="col-md-3"><div class="semantic-swatch text-purple-dark bg-neutral-00">.text-purple-dark<small>→ var(--color-purple-800)</small></div></div>
+            <div class="col-md-3"><div class="semantic-swatch text-purple-darker bg-neutral-00">.text-purple-darker<small>→ var(--color-purple-950)</small></div></div>
+            <div class="col-md-3"><div class="semantic-swatch text-green-base bg-neutral-00">.text-green-base<small>→ var(--color-lime-600)</small></div></div>
+            <div class="col-md-3"><div class="semantic-swatch text-green-dark bg-neutral-00">.text-green-dark<small>→ var(--color-lime-700)</small></div></div>
+            <div class="col-md-3"><div class="semantic-swatch text-orange-base bg-neutral-00">.text-orange-base<small>→ var(--color-orange-500)</small></div></div>
+            <div class="col-md-3"><div class="semantic-swatch text-orange-dark bg-neutral-00">.text-orange-dark<small>→ var(--color-orange-700)</small></div></div>
+            <div class="col-md-3"><div class="semantic-swatch text-gray-base bg-neutral-00">.text-gray-base<small>→ var(--color-slate-500)</small></div></div>
+            <div class="col-md-3"><div class="semantic-swatch text-gray-darker bg-neutral-00">.text-gray-darker<small>→ var(--color-slate-900)</small></div></div>
+            <div class="col-md-3"><div class="semantic-swatch text-on-primary bg-primary-600">.text-on-primary<small>#FFFFFF</small></div></div>
+            <div class="col-md-3"><div class="semantic-swatch text-on-secondary bg-secondary-300">.text-on-secondary<small>#0F172A</small></div></div>
+            <div class="col-md-3"><div class="semantic-swatch text-on-tertiary bg-tertiary-500">.text-on-tertiary<small>#0F172A</small></div></div>
+            <div class="col-md-3"><div class="semantic-swatch text-on-neutral bg-neutral-900">.text-on-neutral<small>#FFFFFF</small></div></div>
+            <div class="col-md-3"><div class="semantic-swatch text-color-base bg-neutral-00">.text-color-base<small>→ default brand</small></div></div>
+            <div class="col-md-3"><div class="semantic-swatch text-color-light bg-neutral-00">.text-color-light<small>→ brand light</small></div></div>
+            <div class="col-md-3"><div class="semantic-swatch text-color-dark bg-neutral-00">.text-color-dark<small>→ brand dark</small></div></div>
           </div>
         </div>
       </section>
@@ -466,7 +466,7 @@
       </section>
     </div>
 
-    <div id="theme-panel" class="card-soft p-3 position-fixed" style="right:16px; bottom:16px; width:260px; display:none; z-index:50;">
+    <div id="theme-panel" class="card-soft p-3 position-fixed theme-panel-drawer d-none">
       <div class="d-flex justify-content-between align-items-center mb-2">
         <strong>Tema</strong>
         <button id="theme-close" class="btn btn-sm btn-outline-secondary">Cerrar</button>

@@ -8,7 +8,6 @@
 $danger: #ff5f5f;
 
 .entry-actions .btn {
-  border-radius: 999px;
   font-weight: 600;
   font-size: 0.85rem;
   padding: 0.4rem 0.75rem;
@@ -27,7 +26,6 @@ $danger: #ff5f5f;
 }
 
 .entry-actions .btn-outline-danger {
-  border-color: rgba(255, 95, 95, 0.2);
   color: $danger;
   background: #fff;
 
@@ -138,9 +136,8 @@ $danger: #ff5f5f;
   text-transform: uppercase;
   font-size: 0.85rem;
   letter-spacing: 0.04em;
-  background: var(--color-bg-secondary-base, #c9c5ff);
-  color: #fff;
-  box-shadow: 0 10px 30px rgba(167, 145, 255, 0.35);
+  background: var(--color-green-500, #4ade80);
+  color: var(--color-purple-600, #1e1b4b);
 }
 
 .hero-title {
@@ -230,7 +227,97 @@ body.modal-open-timio {
 }
 
 #s-filtros-aplicados {
-    border: 1px solid #dbdbdb;
-    border-radius: 4px;
-    padding: 10px;
+  border-top: 1px solid var(--color-gray-400);
+  padding-top: 20px;
 }
+
+// Clases utilitarias del sistema de diseño (reemplazo de estilos en línea)
+.brand-avatar {
+  width: 48px;
+  height: 48px;
+  background: var(--timio-primary, var(--color-surface-primary-default));
+}
+
+.text-brand {
+  color: var(--timio-primary, var(--color-surface-primary-default));
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.dropdown-menu-client {
+  min-width: 240px;
+}
+
+.chart-container {
+  min-height: 240px;
+}
+
+.theme-preview-container {
+  max-width: 1200px;
+}
+
+.theme-preview-header {
+  background: var(--color-bg-surface, #fff);
+  border: 1px solid var(--color-bg-neutral-ghost, #f6f6f9);
+}
+
+.theme-panel-drawer {
+  right: 16px;
+  bottom: 16px;
+  width: 260px;
+  z-index: 1050;
+}
+
+.legend-color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+
+  &.chart-color-0 { background-color: var(--timio-primary, var(--color-surface-primary-default)); }
+  &.chart-color-1 { background-color: var(--timio-secondary, var(--color-surface-accent-default)); }
+  &.chart-color-2 { background-color: var(--color-orange-500, #f97316); }
+  &.chart-color-3 { background-color: var(--color-red-500, #ef4444); }
+  &.chart-color-4 { background-color: var(--color-emerald-500, #10b981); }
+  &.chart-color-5 { background-color: var(--color-slate-700, #334155); }
+}
+
+.export-table {
+  border-collapse: collapse;
+  min-width: 600px;
+
+  th {
+    border: 1px solid var(--color-slate-200, #ddd);
+    padding: 6px 8px;
+    background: var(--color-purple-50, #f7f5fc);
+    font-weight: 700;
+    text-align: left;
+  }
+
+  td {
+    border: 1px solid var(--color-slate-100, #eee);
+    padding: 6px 8px;
+
+    &.text-right {
+      text-align: right;
+    }
+    &.text-left {
+      text-align: left;
+    }
+  }
+
+  .export-total-row td {
+    border: 1px solid var(--color-slate-200, #ddd);
+    padding: 6px 8px;
+    background: var(--color-slate-50, #fafafa);
+    font-weight: 600;
+
+    &:first-child {
+      font-weight: 700;
+    }
+  }
+}
+

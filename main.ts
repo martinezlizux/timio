@@ -1,4 +1,5 @@
 import './styles/main.scss';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 type TimeEntry = {
   id: string;
@@ -11,7 +12,8 @@ type TimeEntry = {
 };
 
 type FilterState = {
-  timeRange: '' | '1w' | '2w' | '3w' | '1m' | '2m' | '3m';
+  startDate: string;
+  endDate: string;
   clients: string[];
 };
 
@@ -25,22 +27,42 @@ type ThemeColors = {
 };
 
 const DEFAULT_THEME: ThemeColors = {
-  bg: '#B8B8FF',
-  text: '#1F1A3D',
-  primary: '#1F1A3D',
-  secondary: '#D4E72C',
-  accent: '#E0E0FF',
-  muted: '#FEFEF0',
+  bg: '#F8FAFC',
+  text: '#0F172A',
+  primary: '#9333EA',
+  secondary: '#BEF264',
+  accent: '#E9D5FF',
+  muted: '#64748B',
 };
 
+const formatDate = (d: Date) => d.toISOString().split('T')[0];
+const getRelativeDate = (daysAgo: number) => {
+  const d = new Date();
+  d.setDate(d.getDate() - daysAgo);
+  return {
+    date: formatDate(d),
+    timestamp: d.getTime()
+  };
+};
+
+const d1 = getRelativeDate(12);
+const d2 = getRelativeDate(5);
+const d3 = getRelativeDate(2);
+
 const INITIAL_ENTRIES: TimeEntry[] = [
-  { id: '1', client: 'Acme Corp', date: '2023-10-05', hours: 5, rate: 50, description: 'Diseño de landing page', timestamp: 1696483200000 },
-  { id: '2', client: 'Globex', date: '2023-10-12', hours: 3.5, rate: 60, description: 'Consultoría React', timestamp: 1697088000000 },
-  { id: '3', client: 'Acme Corp', date: '2023-11-01', hours: 8, rate: 50, description: 'Desarrollo Backend', timestamp: 1698816000000 }
+  { id: '1', client: 'Acme Corp', date: d1.date, hours: 5, rate: 50, description: 'Diseño de landing page', timestamp: d1.timestamp },
+  { id: '2', client: 'Globex', date: d2.date, hours: 3.5, rate: 60, description: 'Consultoría React', timestamp: d2.timestamp },
+  { id: '3', client: 'Acme Corp', date: d3.date, hours: 8, rate: 50, description: 'Desarrollo Backend', timestamp: d3.timestamp }
 ];
 
 let entries: TimeEntry[] = [...INITIAL_ENTRIES];
-let filter: FilterState = { timeRange: '', clients: [] };
+const getDefaultDateRange = () => {
+  const end = new Date();
+  const start = new Date();
+  start.setDate(start.getDate() - 30);
+  return { startDate: formatDate(start), endDate: formatDate(end) };
+};
+let filter: FilterState = { ...getDefaultDateRange(), clients: [] };
 let editingId: string | null = null;
 let theme: ThemeColors = { ...DEFAULT_THEME };
 
@@ -57,21 +79,11 @@ const setCSSTheme = (t: ThemeColors) => {
 const uid = () => Math.random().toString(36).slice(2, 9);
 
 const getFilteredEntries = () => {
-  const now = Date.now();
-  const rangeDays: Record<NonNullable<FilterState['timeRange']>, number> = {
-    '1w': 7,
-    '2w': 14,
-    '3w': 21,
-    '1m': 30,
-    '2m': 60,
-    '3m': 90,
-    '': 0
-  };
   const filtered = entries.filter(entry => {
     const matchClient = filter.clients.length ? filter.clients.includes(entry.client) : true;
-    const days = rangeDays[filter.timeRange ?? ''] ?? 0;
-    const cutoff = days ? now - days * 24 * 60 * 60 * 1000 : 0;
-    const matchDate = cutoff ? entry.timestamp >= cutoff : true;
+    const startTs = filter.startDate ? new Date(`${filter.startDate}T00:00:00`).getTime() : Number.NEGATIVE_INFINITY;
+    const endTs = filter.endDate ? new Date(`${filter.endDate}T23:59:59`).getTime() : Number.POSITIVE_INFINITY;
+    const matchDate = entry.timestamp >= startTs && entry.timestamp <= endTs;
     return matchClient && matchDate;
   }).sort((a, b) => b.timestamp - a.timestamp);
 
@@ -92,13 +104,13 @@ const renderLayout = () => {
   if (!root) return;
 
   root.innerHTML = `
-    <div class="min-vh-100 timio-app p-3 p-md-4" style="background:${theme.bg}">
+    <div class="min-vh-100 timio-app p-3 p-md-4">
       <div class="container-lg">
         <header class="d-flex justify-content-between align-items-center mb-4">
           <div class="d-flex align-items-center gap-3">
-            <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold" style="width:48px;height:48px;background:${theme.primary};">T</div>
+            <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold brand-avatar">T</div>
             <div>
-              <h1 class="h4 mb-0" style="color:${theme.primary}">Timio</h1>
+              <h1 class="h4 mb-0 text-brand">Timio</h1>
               <small class="text-muted">Tracker de horas</small>
             </div>
           </div>
@@ -112,36 +124,36 @@ const renderLayout = () => {
           <div class="col-md-4">
             <div class="card-soft p-3">
               <div class="text-muted text-uppercase small">Total horas</div>
-              <div id="stat-hours" class="fs-3 fw-bold" style="color:${theme.primary}">0h</div>
+              <div id="stat-hours" class="fs-3 fw-bold text-brand">0h</div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="card-soft p-3">
               <div class="text-muted text-uppercase small">Total facturado</div>
-              <div id="stat-earnings" class="fs-3 fw-bold" style="color:${theme.primary}">$0.00</div>
+              <div id="stat-earnings" class="fs-3 fw-bold text-brand">$0.00</div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="card-soft p-3">
               <div class="text-muted text-uppercase small">Registros</div>
-              <div id="stat-count" class="fs-3 fw-bold" style="color:${theme.primary}">0</div>
+              <div id="stat-count" class="fs-3 fw-bold text-brand">0</div>
             </div>
           </div>
         </div>
 
         <div class="d-flex flex-wrap align-items-center gap-2 mb-3" id="filter-bar">
-          <div class="dropdown filter-dropdown d-flex align-items-center gap-2">
+          <div class="d-flex align-items-center gap-2">
             <i class="fa-solid fa-filter text-muted"></i>
-            <button id="filter-time-toggle" class="btn btn-outline-primary btn-sm dropdown-toggle" type="button" aria-expanded="false">
-              Tiempo: <span id="filter-time-label">Todos</span>
-            </button>
-            <div class="dropdown-menu shadow-sm p-3" id="filter-time-menu"></div>
+            <label class="text-muted small mb-0">Desde</label>
+            <input id="filter-start" type="date" class="form-control form-control-sm" />
+            <label class="text-muted small mb-0">Hasta</label>
+            <input id="filter-end" type="date" class="form-control form-control-sm" />
           </div>
           <div class="dropdown filter-dropdown">
             <button id="filter-client-toggle" class="btn btn-outline-primary btn-sm dropdown-toggle" type="button" aria-expanded="false">
               Cliente: <span id="filter-client-label">Todos</span>
             </button>
-            <div class="dropdown-menu shadow-sm p-3" id="filter-client-menu" style="min-width:240px;"></div>
+            <div class="dropdown-menu shadow-sm p-3 dropdown-menu-client" id="filter-client-menu"></div>
           </div>
         </div>
 
@@ -187,17 +199,17 @@ const renderLayout = () => {
           <div class="col-lg-6">
             <div class="card-soft box-white p-3 h-100">
               <div class="d-flex justify-content-between align-items-center mb-2">
-                <h5 class="mb-0" style="color:${theme.primary}">Distribución por cliente</h5>
+                <h5 class="mb-0 text-brand">Distribución por cliente</h5>
                 <small class="text-muted">Ingresos</small>
               </div>
-              <div id="pie-chart" class="d-flex justify-content-center align-items-center" style="min-height:240px;"></div>
+              <div id="pie-chart" class="d-flex justify-content-center align-items-center chart-container"></div>
               <div id="pie-legend" class="mt-3 small"></div>
             </div>
           </div>
           <div class="col-lg-6">
             <div class="card-soft p-3 h-100">
               <div class="d-flex justify-content-between align-items-center mb-2">
-                <h5 class="mb-0" style="color:${theme.primary}">Insights AI</h5>
+                <h5 class="mb-0 text-brand">Insights AI</h5>
               </div>
               <div id="ai-output" class="text-muted small">Sin análisis. Haz clic en "Analizar con AI".</div>
             </div>
@@ -206,7 +218,7 @@ const renderLayout = () => {
       </div>
     </div>
 
-    <div id="entry-modal" class="modal fade" style="display:none;" aria-hidden="true">
+    <div id="entry-modal" class="modal fade d-none" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -245,7 +257,7 @@ const renderLayout = () => {
       </div>
     </div>
 
-    <div id="theme-panel" class="card-soft p-3 position-fixed" style="right:16px; bottom:16px; width:260px; display:none; z-index:50;">
+    <div id="theme-panel" class="card-soft p-3 position-fixed theme-panel-drawer d-none">
       <div class="d-flex justify-content-between align-items-center mb-2">
         <strong>Tema</strong>
         <button id="theme-close" class="btn btn-sm btn-outline-secondary">Cerrar</button>
@@ -274,26 +286,44 @@ const initDropdownCloser = () => {
   dropdownCloserAttached = true;
 };
 
+const initFilterToggle = () => {
+  const btn = document.getElementById('btn-toggle-filters');
+  const applied = document.getElementById('s-filtros-aplicados');
+  if (btn && applied) {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      applied.classList.toggle('d-none');
+      if (applied.classList.contains('d-none')) {
+        closeDropdowns();
+      }
+    });
+  }
+
+  const clientToggle = document.getElementById('filter-client-toggle');
+  const clientMenu = document.getElementById('filter-client-menu');
+  if (clientToggle && clientMenu) {
+    clientToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeDropdowns();
+      clientMenu.classList.toggle('show');
+      clientToggle.setAttribute('aria-expanded', clientMenu.classList.contains('show') ? 'true' : 'false');
+    });
+    clientMenu.addEventListener('click', (e) => e.stopPropagation());
+    initDropdownCloser();
+  }
+};
+
 const renderAppliedFilters = () => {
   const chips = document.getElementById('s-filtros-aplicados');
   if (!chips) return;
-  const timeLabels: Record<NonNullable<FilterState['timeRange']>, string> = {
-    '': 'Todos',
-    '1w': 'Última semana',
-    '2w': 'Últimas 2 semanas',
-    '3w': 'Últimas 3 semanas',
-    '1m': 'Último mes',
-    '2m': 'Últimos 2 meses',
-    '3m': 'Últimos 3 meses'
-  };
 
   const chipParts: string[] = [];
 
-  if (filter.timeRange) {
+  if (filter.startDate || filter.endDate) {
     chipParts.push(`
       <span class="badge text-bg-primary filter-chip" data-chip="time">
-        <span class="small">Tiempo: ${timeLabels[filter.timeRange]}</span>
-        <button type="button" class="btn btn-link btn-sm p-0 m-0 text-white" data-remove="time" aria-label="Quitar filtro tiempo">
+        <span class="small">Fechas: ${filter.startDate || '...'} → ${filter.endDate || '...'}</span>
+        <button type="button" class="btn btn-link btn-sm p-0 m-0 text-white" data-remove="time" aria-label="Quitar filtro de fechas">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </span>
@@ -317,7 +347,7 @@ const renderAppliedFilters = () => {
     chips.innerHTML = chipParts.join('');
     chips.querySelectorAll('[data-remove="time"]').forEach(btn => {
       btn.addEventListener('click', () => {
-        filter.timeRange = '';
+        filter = { ...filter, ...getDefaultDateRange() };
         renderAll();
       });
     });
@@ -332,29 +362,14 @@ const renderAppliedFilters = () => {
 };
 
 const renderFilters = () => {
-  const timeMenu = document.getElementById('filter-time-menu');
-  const timeLabel = document.getElementById('filter-time-label');
+  const startInput = document.getElementById('filter-start') as HTMLInputElement | null;
+  const endInput = document.getElementById('filter-end') as HTMLInputElement | null;
   const clientMenu = document.getElementById('filter-client-menu');
   const clientLabel = document.getElementById('filter-client-label');
-  if (!timeMenu || !clientMenu || !timeLabel || !clientLabel) return;
+  if (!startInput || !endInput || !clientMenu || !clientLabel) return;
 
-  const timeOptions: { value: FilterState['timeRange']; label: string }[] = [
-    { value: '', label: 'Todos' },
-    { value: '1w', label: 'Última semana' },
-    { value: '2w', label: 'Últimas 2 semanas' },
-    { value: '3w', label: 'Últimas 3 semanas' },
-    { value: '1m', label: 'Último mes' },
-    { value: '2m', label: 'Últimos 2 meses' },
-    { value: '3m', label: 'Últimos 3 meses' }
-  ];
-
-  timeMenu.innerHTML = timeOptions.map(opt => `
-    <div class="form-check mb-1">
-      <input class="form-check-input" type="radio" name="time-range" id="time-${opt.value || 'all'}" value="${opt.value}" ${filter.timeRange === opt.value ? 'checked' : ''}>
-      <label class="form-check-label" for="time-${opt.value || 'all'}">${opt.label}</label>
-    </div>
-  `).join('');
-  timeLabel.textContent = timeOptions.find(o => o.value === filter.timeRange)?.label || 'Todos';
+  startInput.value = filter.startDate;
+  endInput.value = filter.endDate;
 
   const clients = Array.from(new Set(entries.map(e => e.client)));
   filter.clients = filter.clients.filter(c => clients.includes(c));
@@ -378,13 +393,23 @@ const renderFilters = () => {
     clientLabel.textContent = `${filter.clients.length} seleccionados`;
   }
 
-  timeMenu.querySelectorAll<HTMLInputElement>('input[name="time-range"]').forEach(input => {
-    input.onchange = (e) => {
-      const val = (e.target as HTMLInputElement).value as FilterState['timeRange'];
-      filter.timeRange = val;
-      renderAll();
-    };
-  });
+  startInput.onchange = (e) => {
+    const val = (e.target as HTMLInputElement).value;
+    filter.startDate = val;
+    if (filter.endDate && filter.startDate > filter.endDate) {
+      filter.endDate = filter.startDate;
+    }
+    renderAll();
+  };
+
+  endInput.onchange = (e) => {
+    const val = (e.target as HTMLInputElement).value;
+    filter.endDate = val;
+    if (filter.startDate && filter.startDate > filter.endDate) {
+      filter.startDate = filter.endDate;
+    }
+    renderAll();
+  };
 
   const clientAll = document.getElementById('client-all') as HTMLInputElement | null;
   if (clientAll) {
@@ -410,7 +435,6 @@ const renderFilters = () => {
   });
 
   const dropdowns = [
-    { buttonId: 'filter-time-toggle', menuId: 'filter-time-menu' },
     { buttonId: 'filter-client-toggle', menuId: 'filter-client-menu' }
   ];
   dropdowns.forEach(({ buttonId, menuId }) => {
@@ -468,7 +492,7 @@ const renderTable = () => {
             <button class="btn btn-link-primary btn-sm" data-edit="${e.id}">
               <i class="fa-solid fa-pen-to-square me-1"></i> Editar
             </button>
-            <button class="btn btn-outline-danger btn-sm" data-delete="${e.id}">
+            <button class="btn btn-link-danger btn-sm" data-delete="${e.id}">
               <i class="fa-solid fa-trash-can me-1"></i> Borrar
             </button>
           </div>
@@ -563,7 +587,7 @@ const renderPieChart = () => {
 
   legend.innerHTML = entriesData.map(([name, value], idx) => `
     <div class="d-flex align-items-center gap-2 mb-1">
-      <span class="rounded-circle d-inline-block" style="width:12px;height:12px;background:${colors[idx % colors.length]};"></span>
+      <span class="legend-color-dot chart-color-${idx % 6}"></span>
       <span>${escapeHtml(name)}</span>
       <span class="ms-auto fw-bold">$${value.toFixed(2)}</span>
     </div>
@@ -732,28 +756,36 @@ const handleCopyTable = async () => {
   const tsv = [headers, ...rows, totalsRow].map(cols => cols.join('\t')).join('\n');
 
   const htmlTable = `
-    <table style="border-collapse:collapse;min-width:600px;">
+    <style>
+      .export-table { border-collapse: collapse; min-width: 600px; font-family: sans-serif; }
+      .export-table th { border: 1px solid #ddd; padding: 6px 8px; background: #f7f5fc; font-weight: 700; text-align: left; }
+      .export-table td { border: 1px solid #eee; padding: 6px 8px; }
+      .export-table .text-right { text-align: right; }
+      .export-table .text-left { text-align: left; }
+      .export-table .export-total-row td { border: 1px solid #ddd; padding: 6px 8px; background: #fafafa; font-weight: 600; }
+      .export-table .export-total-row td:first-child { font-weight: 700; }
+    </style>
+    <table class="export-table">
       <thead>
         <tr>
-          ${headers.map(h => `<th style="border:1px solid #ddd;padding:6px 8px;background:#f7f5fc;font-weight:700;text-align:left;">${h}</th>`).join('')}
+          ${headers.map(h => `<th>${h}</th>`).join('')}
         </tr>
       </thead>
       <tbody>
         ${rows.map(row => `
           <tr>
             ${row.map((cell, idx) => {
-              const align = idx >= 3 ? 'right' : 'left';
-              return `<td style="border:1px solid #eee;padding:6px 8px;text-align:${align};">${cell}</td>`;
+              const alignClass = idx >= 3 ? 'text-right' : 'text-left';
+              return `<td class="${alignClass}">${cell}</td>`;
             }).join('')}
           </tr>
         `).join('')}
       </tbody>
       <tfoot>
-        <tr>
+        <tr class="export-total-row">
           ${totalsRow.map((cell, idx) => {
-            const align = idx >= 3 ? 'right' : 'left';
-            const weight = idx === 0 ? '700' : '600';
-            return `<td style="border:1px solid #ddd;padding:6px 8px;text-align:${align};font-weight:${weight};background:#fafafa;">${cell}</td>`;
+            const alignClass = idx >= 3 ? 'text-right' : 'text-left';
+            return `<td class="${alignClass}">${cell}</td>`;
           }).join('')}
         </tr>
       </tfoot>
@@ -802,9 +834,9 @@ const handleExportPDF = () => {
     <tr>
       <td>${escapeHtml(e.date)}</td>
       <td>${escapeHtml(e.client)}</td>
-      <td style="text-align:right;">${escapeHtml(e.hours)}</td>
-      <td style="text-align:right;">$${escapeHtml(e.rate)}</td>
-      <td style="text-align:right;">$${(e.hours * e.rate).toFixed(2)}</td>
+      <td class="text-end">${escapeHtml(e.hours)}</td>
+      <td class="text-end">$${escapeHtml(e.rate)}</td>
+      <td class="text-end">$${(e.hours * e.rate).toFixed(2)}</td>
       <td>${escapeHtml(e.description)}</td>
     </tr>
   `).join('');
@@ -822,6 +854,8 @@ const handleExportPDF = () => {
           th, td { padding: 10px 12px; border-bottom: 1px solid #e5e7eb; }
           th { text-align: left; background: #f3f4f6; text-transform: uppercase; letter-spacing: 0.06em; font-size: 12px; color: ${theme.primary}; }
           tfoot td { font-weight: 700; background: #f9fafb; }
+          .text-end { text-align: right; }
+          .text-center { text-align: center; }
         </style>
       </head>
       <body>
@@ -831,21 +865,21 @@ const handleExportPDF = () => {
             <tr>
               <th>Fecha</th>
               <th>Cliente</th>
-              <th style="text-align:right;">Horas</th>
-              <th style="text-align:right;">Tarifa/Hora</th>
-              <th style="text-align:right;">Total</th>
+              <th class="text-end">Horas</th>
+              <th class="text-end">Tarifa/Hora</th>
+              <th class="text-end">Total</th>
               <th>Descripción</th>
             </tr>
           </thead>
           <tbody>
-            ${rows || '<tr><td colspan="6" style="text-align:center;">Sin registros</td></tr>'}
+            ${rows || '<tr><td colspan="6" class="text-center">Sin registros</td></tr>'}
           </tbody>
           <tfoot>
             <tr>
               <td colspan="2">Registros: ${filtered.length}</td>
-              <td style="text-align:right;">${stats.totalHours}h</td>
+              <td class="text-end">${stats.totalHours}h</td>
               <td></td>
-              <td style="text-align:right;">$${stats.totalEarnings.toFixed(2)}</td>
+              <td class="text-end">$${stats.totalEarnings.toFixed(2)}</td>
               <td></td>
             </tr>
           </tfoot>
@@ -923,6 +957,7 @@ const bootstrapApp = () => {
   renderAll();
   bindGlobalActions();
   bindModal();
+  initFilterToggle();
 };
 
 document.addEventListener('DOMContentLoaded', bootstrapApp);

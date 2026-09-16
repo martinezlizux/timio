@@ -2,14 +2,16 @@
 @use "./_colors" as colors;
 
 .btn {
-  border-radius: 999px;
-  font-weight: 700;
-  padding: 0.55rem 1.15rem;
+  font-weight: 600;
   transition: all 0.18s ease;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
   cursor: pointer;
+}
+
+.btn-rounded{
+  border-radius: 999px;
 }
 
 .btn--primary {
@@ -189,7 +191,7 @@
   &:hover {
     color: colors.bg-token("primary", 700);
     text-decoration-color: colors.bg-token("primary", 700);
-    background-color: colors.bg-token("primary", 300);
+    background-color: colors.bg-token("primary", 200);
   }
 }
 
@@ -218,10 +220,26 @@
 .btn-link-system {
   color: colors.text-color-token("gray-darker");
   text-decoration-color: colors.text-color-token("gray-darker");
+  border: none;
+  border-radius: 4px;
 
+  
   &:hover {
     color: colors.text-color-token("gray-darker");
     text-decoration-color: colors.text-color-token("gray-darker");
-    background-color: colors.bg-token("neutral", 100);
+    background-color: colors.bg-token("primary", 200);
+  }
+}
+
+$danger: #ff5f5f;
+
+.btn-link-danger{
+  color: $danger;
+  border: none;
+  border-radius: 4px;
+  
+  &:hover {
+    color: $danger;
+    background-color: var(--color-orange-100, #fff0f0);
   }
 }
