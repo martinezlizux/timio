@@ -1,5 +1,6 @@
 import './styles/main.scss';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { t, currentLanguage, setLanguage, Language } from './services/i18n';
 
 type TimeEntry = {
   id: string;
@@ -66,6 +67,44 @@ let filter: FilterState = { ...getDefaultDateRange(), clients: [] };
 let editingId: string | null = null;
 let theme: ThemeColors = { ...DEFAULT_THEME };
 
+const applyTranslations = () => {
+  document.documentElement.lang = currentLanguage;
+
+  // Text translations
+  document.querySelectorAll<HTMLElement>('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (key) {
+      el.textContent = t(key);
+    }
+  });
+
+  // Placeholder translations
+  document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (key) {
+      el.placeholder = t(key);
+    }
+  });
+
+  // Image alt translations
+  document.querySelectorAll<HTMLImageElement>('[data-i18n-alt]').forEach(el => {
+    const key = el.dataset.i18nAlt;
+    if (key) {
+      el.alt = t(key);
+    }
+  });
+
+  // Update switcher buttons state
+  document.querySelectorAll<HTMLButtonElement>('.btn-lang-item').forEach(btn => {
+    const lang = btn.dataset.lang;
+    if (lang === currentLanguage) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+};
+
 const setCSSTheme = (t: ThemeColors) => {
   const root = document.documentElement;
   root.style.setProperty('--timio-bg', t.bg);
@@ -98,181 +137,6 @@ const escapeHtml = (val: string | number) =>
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
-
-const renderLayout = () => {
-  const root = document.getElementById('app');
-  if (!root) return;
-
-  root.innerHTML = `
-    <div class="min-vh-100 timio-app p-3 p-md-4">
-      <div class="container-lg">
-        <header class="d-flex justify-content-between align-items-center mb-4">
-          <div class="d-flex align-items-center gap-3">
-            <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold brand-avatar">T</div>
-            <div>
-              <h1 class="h4 mb-0 text-brand">Timio</h1>
-              <small class="text-muted">Tracker de horas</small>
-            </div>
-          </div>
-          <div class="d-flex gap-2">
-            <button id="btn-theme-panel" class="btn btn-outline-primary btn-sm">Tema</button>
-            <button id="btn-login" class="btn btn-soft-primary btn-sm">Login</button>
-          </div>
-        </header>
-
-        <div class="row g-3 mb-4">
-          <div class="col-md-4">
-            <div class="card-soft p-3">
-              <div class="text-muted text-uppercase small">Total horas</div>
-              <div id="stat-hours" class="fs-3 fw-bold text-brand">0h</div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card-soft p-3">
-              <div class="text-muted text-uppercase small">Total facturado</div>
-              <div id="stat-earnings" class="fs-3 fw-bold text-brand">$0.00</div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card-soft p-3">
-              <div class="text-muted text-uppercase small">Registros</div>
-              <div id="stat-count" class="fs-3 fw-bold text-brand">0</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="d-flex flex-wrap align-items-center gap-2 mb-3" id="filter-bar">
-          <div class="d-flex align-items-center gap-2">
-            <i class="fa-solid fa-filter text-muted"></i>
-            <label class="text-muted small mb-0">Desde</label>
-            <input id="filter-start" type="date" class="form-control form-control-sm" />
-            <label class="text-muted small mb-0">Hasta</label>
-            <input id="filter-end" type="date" class="form-control form-control-sm" />
-          </div>
-          <div class="dropdown filter-dropdown">
-            <button id="filter-client-toggle" class="btn btn-outline-primary btn-sm dropdown-toggle" type="button" aria-expanded="false">
-              Cliente: <span id="filter-client-label">Todos</span>
-            </button>
-            <div class="dropdown-menu shadow-sm p-3 dropdown-menu-client" id="filter-client-menu"></div>
-          </div>
-        </div>
-
-        <div class="d-flex flex-wrap gap-2 mb-3">
-          <button id="btn-new" class="btn btn-soft-primary"><i class="fa-solid fa-plus me-1"></i> Nueva entrada</button>
-          <button id="btn-copy" class="btn btn-link-primary" title="Copiar tabla">
-            <i class="fa-solid fa-copy me-1"></i> Copiar
-          </button>
-          <button id="btn-export-csv" class="btn btn-outline-primary btn-soft">
-            <i class="fa-solid fa-file-export me-1"></i> Exportar CSV
-          </button>
-          <button id="btn-export-pdf" class="btn btn-outline-primary btn-soft">
-            <i class="fa-solid fa-file-pdf me-1"></i> Exportar PDF
-          </button>
-          <label class="btn btn-outline-secondary btn-soft mb-0">
-            <i class="fa-solid fa-file-import me-1"></i> Importar
-            <input id="file-upload" type="file" accept=".csv,.xlsx" hidden />
-          </label>
-          <button id="btn-analyze" class="btn btn-outline-success btn-soft"><i class="fa-solid fa-wand-magic-sparkles me-1"></i> Analizar con AI</button>
-        </div>
-
-        <div class="card-soft mb-4">
-          <div class="table-responsive">
-            <table class="table table-timio mb-0">
-              <thead>
-                <tr>
-                  <th>Cliente</th>
-                  <th>Descripción</th>
-                  <th>Fecha</th>
-                  <th class="text-end">Horas</th>
-                  <th class="text-end">Tarifa</th>
-                  <th class="text-end">Total</th>
-                  <th class="text-end">Acciones</th>
-                </tr>
-              </thead>
-              <tbody id="entries-body"></tbody>
-              <tfoot id="entries-foot"></tfoot>
-            </table>
-          </div>
-        </div>
-
-        <div class="row g-4 mb-5">
-          <div class="col-lg-6">
-            <div class="card-soft box-white p-3 h-100">
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <h5 class="mb-0 text-brand">Distribución por cliente</h5>
-                <small class="text-muted">Ingresos</small>
-              </div>
-              <div id="pie-chart" class="d-flex justify-content-center align-items-center chart-container"></div>
-              <div id="pie-legend" class="mt-3 small"></div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="card-soft p-3 h-100">
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <h5 class="mb-0 text-brand">Insights AI</h5>
-              </div>
-              <div id="ai-output" class="text-muted small">Sin análisis. Haz clic en "Analizar con AI".</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="entry-modal" class="modal fade d-none" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 id="modal-title" class="modal-title">Nueva entrada</h5>
-            <button type="button" class="btn-close" id="modal-close"></button>
-          </div>
-          <div class="modal-body">
-            <form id="entry-form" class="row g-3">
-              <div class="col-12">
-                <label class="form-label">Cliente</label>
-                <input id="form-client" type="text" class="form-control" required />
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Fecha</label>
-                <input id="form-date" type="date" class="form-control" required />
-              </div>
-              <div class="col-md-3">
-                <label class="form-label">Horas</label>
-                <input id="form-hours" type="number" step="0.1" min="0" class="form-control" required />
-              </div>
-              <div class="col-md-3">
-                <label class="form-label">Tarifa/Hora</label>
-                <input id="form-rate" type="number" step="1" min="0" class="form-control" required />
-              </div>
-              <div class="col-12">
-                <label class="form-label">Descripción</label>
-                <textarea id="form-description" class="form-control" rows="2"></textarea>
-              </div>
-              <div class="col-12 text-end">
-                <button type="button" class="btn btn-link text-muted me-2" id="modal-cancel">Cancelar</button>
-                <button type="submit" class="btn btn-soft-primary" id="modal-submit">Guardar</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="theme-panel" class="card-soft p-3 position-fixed theme-panel-drawer d-none">
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <strong>Tema</strong>
-        <button id="theme-close" class="btn btn-sm btn-outline-secondary">Cerrar</button>
-      </div>
-      <div class="d-grid gap-2">
-        ${['bg','text','primary','secondary','accent','muted'].map(key => `
-          <label class="small d-flex justify-content-between align-items-center">
-            <span class="text-capitalize">${key}</span>
-            <input data-theme-key="${key}" type="color" value="${(theme as any)[key]}" class="form-control form-control-color" />
-          </label>
-        `).join('')}
-      </div>
-    </div>
-  `;
-};
 
 const closeDropdowns = () => {
   document.querySelectorAll<HTMLElement>('.filter-dropdown .dropdown-menu.show').forEach(menu => menu.classList.remove('show'));
@@ -322,7 +186,7 @@ const renderAppliedFilters = () => {
   if (filter.startDate || filter.endDate) {
     chipParts.push(`
       <span class="badge text-bg-primary filter-chip" data-chip="time">
-        <span class="small">Fechas: ${filter.startDate || '...'} → ${filter.endDate || '...'}</span>
+        <span class="small">${t('table.dateRange', { start: filter.startDate || '...', end: filter.endDate || '...' })}</span>
         <button type="button" class="btn btn-link btn-sm p-0 m-0 text-white" data-remove="time" aria-label="Quitar filtro de fechas">
           <i class="fa-solid fa-xmark"></i>
         </button>
@@ -333,7 +197,7 @@ const renderAppliedFilters = () => {
   filter.clients.forEach(client => {
     chipParts.push(`
       <span class="badge text-bg-primary filter-chip" data-chip="client-${client}">
-        <span class="small">Cliente: ${escapeHtml(client)}</span>
+        <span class="small">${t('table.clientFilterBadge', { client: escapeHtml(client) })}</span>
         <button type="button" class="btn btn-link btn-sm p-0 m-0 text-white" data-remove-client="${escapeHtml(client)}" aria-label="Quitar cliente ${escapeHtml(client)}">
           <i class="fa-solid fa-xmark"></i>
         </button>
@@ -342,7 +206,7 @@ const renderAppliedFilters = () => {
   });
 
   if (!chipParts.length) {
-    chips.innerHTML = `<span class="text-muted small">Sin filtros aplicados</span>`;
+    chips.innerHTML = `<span class="text-muted small">${t('table.noFilters')}</span>`;
   } else {
     chips.innerHTML = chipParts.join('');
     chips.querySelectorAll('[data-remove="time"]').forEach(btn => {
@@ -366,7 +230,7 @@ const renderFilters = () => {
   const endInput = document.getElementById('filter-end') as HTMLInputElement | null;
   const clientMenu = document.getElementById('filter-client-menu');
   const clientLabel = document.getElementById('filter-client-label');
-  if (!startInput || !endInput || !clientMenu || !clientLabel) return;
+  if (!startInput || !endInput || !clientMenu) return;
 
   startInput.value = filter.startDate;
   endInput.value = filter.endDate;
@@ -376,7 +240,7 @@ const renderFilters = () => {
   clientMenu.innerHTML = `
     <div class="form-check mb-2">
       <input class="form-check-input" type="checkbox" id="client-all" ${filter.clients.length === 0 ? 'checked' : ''}>
-      <label class="form-check-label" for="client-all">Todos</label>
+      <label class="form-check-label" for="client-all">${t('table.clientAll')}</label>
     </div>
     ${clients.map(c => `
       <div class="form-check mb-1">
@@ -385,12 +249,14 @@ const renderFilters = () => {
       </div>
     `).join('')}
   `;
-  if (filter.clients.length === 0) {
-    clientLabel.textContent = 'Todos';
-  } else if (filter.clients.length === 1) {
-    clientLabel.textContent = filter.clients[0];
-  } else {
-    clientLabel.textContent = `${filter.clients.length} seleccionados`;
+  if (clientLabel) {
+    if (filter.clients.length === 0) {
+      clientLabel.textContent = t('table.clientAll');
+    } else if (filter.clients.length === 1) {
+      clientLabel.textContent = filter.clients[0];
+    } else {
+      clientLabel.textContent = t('table.clientSelected', { count: filter.clients.length });
+    }
   }
 
   startInput.onchange = (e) => {
@@ -464,7 +330,7 @@ const renderTable = () => {
       <tr>
         <td colspan="7" class="text-center py-4">
           <div class="empty-placeholder mx-auto">
-            <svg width="200" height="200" viewBox="0 0 200 200" role="img" aria-label="Sin registros">
+            <svg width="200" height="200" viewBox="0 0 200 200" role="img" aria-label="${t('table.emptyTitle')}">
               <rect x="24" y="36" width="152" height="112" rx="12" fill="#F7F5FC" stroke="#C7B8F4" stroke-width="3" />
               <rect x="40" y="56" width="72" height="12" rx="6" fill="#C7B8F4" opacity="0.8" />
               <rect x="40" y="78" width="104" height="12" rx="6" fill="#D4F26A" opacity="0.5" />
@@ -473,7 +339,7 @@ const renderTable = () => {
               <circle cx="158" cy="150" r="18" fill="#F1EEF6" stroke="#C7B8F4" stroke-width="3" />
               <path d="M152 150l8 8 12-16" stroke="#6F5ACF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
             </svg>
-            <div class="fw-semibold">No tienes ninguna hora registrada</div>
+            <div class="fw-semibold">${t('table.emptyTitle')}</div>
           </div>
         </td>
       </tr>
@@ -490,10 +356,10 @@ const renderTable = () => {
         <td class="text-end">
           <div class="entry-actions">
             <button class="btn btn-link-primary btn-sm" data-edit="${e.id}">
-              <i class="fa-solid fa-pen-to-square me-1"></i> Editar
+              <i class="fa-solid fa-pen-to-square me-1"></i> ${t('table.btnEdit')}
             </button>
             <button class="btn btn-link-danger btn-sm" data-delete="${e.id}">
-              <i class="fa-solid fa-trash-can me-1"></i> Borrar
+              <i class="fa-solid fa-trash-can me-1"></i> ${t('table.btnDelete')}
             </button>
           </div>
         </td>
@@ -503,7 +369,7 @@ const renderTable = () => {
 
   tfoot.innerHTML = `
     <tr class="summary-row">
-      <td colspan="2">Registros: ${filtered.length}</td>
+      <td colspan="2">${t('table.summaryRecords', { count: filtered.length })}</td>
       <td></td>
       <td class="text-end">${stats.totalHours}h</td>
       <td></td>
@@ -523,7 +389,7 @@ const renderTable = () => {
   tbody.querySelectorAll('[data-delete]').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = (btn as HTMLElement).getAttribute('data-delete');
-      if (id && confirm('¿Eliminar este registro?')) {
+      if (id && confirm(t('messages.confirmDelete'))) {
         entries = entries.filter(en => en.id !== id);
         renderAll();
       }
@@ -581,7 +447,7 @@ const renderPieChart = () => {
     <svg width="240" height="240" viewBox="0 0 240 240">
       <circle r="${radius}" cx="120" cy="120" fill="transparent" stroke="#f1f3f5" stroke-width="24" />
       ${slices}
-      <text x="120" y="125" text-anchor="middle" font-size="14" fill="${theme.primary}" font-weight="700">${entriesData.length} clientes</text>
+      <text x="120" y="125" text-anchor="middle" font-size="14" fill="${theme.primary}" font-weight="700">${t('analytics.clientsCount', { count: entriesData.length })}</text>
     </svg>
   `;
 
@@ -595,6 +461,18 @@ const renderPieChart = () => {
 };
 
 const bindGlobalActions = () => {
+  // Selector de idioma
+  document.querySelectorAll<HTMLButtonElement>('.btn-lang-item').forEach(btn => {
+    btn.onclick = () => {
+      const lang = btn.dataset.lang as Language;
+      if (lang && lang !== currentLanguage) {
+        setLanguage(lang);
+        applyTranslations();
+        renderAll();
+      }
+    };
+  });
+
   const btnNew = document.getElementById('btn-new');
   if (btnNew) btnNew.onclick = () => openModal();
 
@@ -602,7 +480,7 @@ const bindGlobalActions = () => {
   if (btnCsv) btnCsv.onclick = handleExportCSV;
 
   const btnCopy = document.getElementById('btn-copy');
-  if (btnCopy) btnCopy.onclick = () => { handleCopyTable().then(() => showToast('Tabla copiada', 'success')); };
+  if (btnCopy) btnCopy.onclick = () => { handleCopyTable().then(() => showToast(t('messages.tableCopied'), 'success')); };
 
   const btnPdf = document.getElementById('btn-export-pdf');
   if (btnPdf) btnPdf.onclick = handleExportPDF;
@@ -635,6 +513,7 @@ const openModal = (entry?: TimeEntry) => {
   const modal = document.getElementById('entry-modal') as HTMLElement | null;
   if (!modal) return;
   const title = document.getElementById('modal-title');
+  const submitBtn = document.getElementById('modal-submit');
   const formClient = document.getElementById('form-client') as HTMLInputElement;
   const formDate = document.getElementById('form-date') as HTMLInputElement;
   const formHours = document.getElementById('form-hours') as HTMLInputElement;
@@ -643,7 +522,8 @@ const openModal = (entry?: TimeEntry) => {
 
   if (entry) {
     editingId = entry.id;
-    if (title) title.textContent = 'Editar entrada';
+    if (title) title.textContent = t('modal.editTitle');
+    if (submitBtn) submitBtn.textContent = t('modal.btnSaveEdit');
     formClient.value = entry.client;
     formDate.value = entry.date;
     formHours.value = entry.hours.toString();
@@ -651,7 +531,8 @@ const openModal = (entry?: TimeEntry) => {
     formDesc.value = entry.description;
   } else {
     editingId = null;
-    if (title) title.textContent = 'Nueva entrada';
+    if (title) title.textContent = t('modal.newTitle');
+    if (submitBtn) submitBtn.textContent = t('modal.btnSave');
     formClient.value = '';
     formDate.value = new Date().toISOString().split('T')[0];
     formHours.value = '0';
@@ -913,7 +794,7 @@ const handleFileUpload = (e: Event) => {
   if (!file) return;
   const reader = new FileReader();
   reader.onload = () => {
-    alert(`Archivo "${file.name}" cargado. (Simulación: se añaden 2 registros)`);
+    alert(t('messages.fileUploaded', { fileName: file.name }));
     const mock: TimeEntry[] = [
       { id: uid(), client: 'Importado Inc', date: '2023-12-01', hours: 4, rate: 45, description: 'Datos importados', timestamp: new Date('2023-12-01').getTime() },
       { id: uid(), client: 'Importado Inc', date: '2023-12-02', hours: 2, rate: 45, description: 'Datos importados vol 2', timestamp: new Date('2023-12-02').getTime() }
@@ -930,10 +811,10 @@ const handleAnalyzeAI = async () => {
   if (!output) return;
   const { filtered, stats } = getFilteredEntries();
   if (!filtered.length) {
-    output.textContent = 'No hay datos para analizar.';
+    output.textContent = t('analytics.aiNoData');
     return;
   }
-  output.textContent = 'Analizando...';
+  output.textContent = t('analytics.aiAnalyzing');
   // Simulación simple en lugar de llamada externa
   setTimeout(() => {
     const topClient = filtered.reduce<Record<string, number>>((acc, e) => {
@@ -943,10 +824,10 @@ const handleAnalyzeAI = async () => {
     const best = Object.entries(topClient).sort((a, b) => b[1] - a[1])[0];
     output.innerHTML = `
       <ul class="mb-0">
-        <li>Facturación total: <strong>$${stats.totalEarnings.toFixed(2)}</strong></li>
-        <li>Horas registradas: <strong>${stats.totalHours}h</strong></li>
-        ${best ? `<li>Cliente más rentable: <strong>${escapeHtml(best[0])}</strong> ($${best[1].toFixed(2)})</li>` : ''}
-        <li>Tip retro: bloquea sesiones de 90 minutos y toma breaks cortos.</li>
+        <li>${t('analytics.aiTotalBilled')} <strong>$${stats.totalEarnings.toFixed(2)}</strong></li>
+        <li>${t('analytics.aiLoggedHours')} <strong>${stats.totalHours}h</strong></li>
+        ${best ? `<li>${t('analytics.aiTopClient')} <strong>${escapeHtml(best[0])}</strong> ($${best[1].toFixed(2)})</li>` : ''}
+        <li>${t('analytics.aiTip')}</li>
       </ul>
     `;
   }, 400);
@@ -961,6 +842,7 @@ const renderAll = () => {
 
 const bootstrapApp = () => {
   setCSSTheme(theme);
+  applyTranslations();
   renderAll();
   bindGlobalActions();
   bindModal();

@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
     <!-- Tailwind CDN kept to preserve utility classes alongside Bootstrap -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script type="module" crossorigin src="./assets/index-DDw8jLs7.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CrmEM4Kp.css">
+    <script type="module" crossorigin src="./assets/index-DfpLVApo.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CnUONa-o.css">
   </head>
   <body>
     <div id="app" class="min-vh-100 timio-app p-3 p-md-4">
@@ -20,41 +20,46 @@
             <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold brand-avatar">T</div>
             <div>
               <h1 class="h4 mb-0 text-brand">Timio</h1>
-              <small class="text-muted">Tracker de horas</small>
+              <small class="text-muted" data-i18n="brand.subtitle">Tracker de horas</small>
             </div>
           </div>
-          <div class="d-flex gap-2">
-            <button id="btn-login" class="btn btn-link-system btn-sm">Login</button>
+          <div class="d-flex align-items-center gap-2">
+            <div class="lang-switcher-pill d-inline-flex align-items-center me-1" id="lang-switcher">
+              <i class="fa-solid fa-globe lang-globe-icon"></i>
+              <button type="button" class="btn-lang-item active" data-lang="es" aria-label="Español">ES</button>
+              <button type="button" class="btn-lang-item" data-lang="en" aria-label="English">EN</button>
+            </div>
+            <button id="btn-login" class="btn btn-link-system btn-sm" data-i18n="brand.login">Login</button>
           </div>
         </header>
         <section id="s-hero" class="row align-items-center gy-4 mb-4">
           <div class="col-lg-7">
-            <span class="hero-pill">Nuevo</span>
-            <h1 class="hero-title">Controla tus horas trabajadas con Timio</h1>
-            <p class="hero-description">Registra, exporta y analiza tus proyectos en un solo lugar. Visualiza tus totales y obtén insights al instante.</p>
+            <span class="hero-pill" data-i18n="hero.pill">Nuevo</span>
+            <h1 class="hero-title" data-i18n="hero.title">Controla tus horas trabajadas con Timio</h1>
+            <p class="hero-description" data-i18n="hero.description">Registra, exporta y analiza tus proyectos en un solo lugar. Visualiza tus totales y obtén insights al instante.</p>
           </div>
           <div class="col-lg-5 text-center">
           
-            <img src="./assets/timio1-SYfQ9P7M.svg" alt="Ilustración de persona sosteniendo un reloj" class="hero-illustration">
+            <img src="./assets/timio1-SYfQ9P7M.svg" alt="Ilustración de persona sosteniendo un reloj" class="hero-illustration" data-i18n-alt="hero.alt">
           </div>
         </section>
 
         <section id="s-resumen" class="row g-3 mb-4 ">
           <div class="col-md-4">
             <div class="hero-stat-card">
-              <div class="hero-stat-label">Total de horas</div>
+              <div class="hero-stat-label" data-i18n="stats.hours">Total de horas</div>
               <div id="stat-hours" class="hero-stat-value">0h</div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="hero-stat-card">
-              <div class="hero-stat-label">Total facturado</div>
+              <div class="hero-stat-label" data-i18n="stats.earnings">Total facturado</div>
               <div id="stat-earnings" class="hero-stat-value">$0.00</div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="hero-stat-card">
-              <div class="hero-stat-label">Total de entradas</div>
+              <div class="hero-stat-label" data-i18n="stats.entries">Total de entradas</div>
               <div id="stat-count" class="hero-stat-value">0</div>
             </div>
           </div>
@@ -67,12 +72,12 @@
                 <!-- Titulo Tabla -->
                 <div class="d-flex align-items-center gap-1">
                   <i class="fa-solid fa-clock fa-lg text-brand"></i>
-                  <h2 class="h4 mb-0 fw-bold">Mis horas</h2>
+                  <h2 class="h4 mb-0 fw-bold" data-i18n="table.title">Mis horas</h2>
                 </div>
                 <!-- Descripcion Tabla -->
                 <button type="button" class="btn btn-sm btn-link-primary">
                   <i class="fa-solid fa-pen"></i>
-                  <span>Add a description</span>
+                  <span data-i18n="table.addDescription">Add a description</span>
                 </button>
               </div>
             </div>
@@ -82,18 +87,18 @@
               <div>
                 <button id="btn-toggle-filters" class="btn btn-sm btn-link-system d-inline-flex align-items-center">
                   <i class="fa-solid fa-filter"></i>
-                  <span>Filtrar</span>
+                  <span data-i18n="table.filter">Filtrar</span>
                 </button>
               </div>
               <!-- upload file and add-->
               <div class="d-flex align-items-center gap-3">
                 <label class="btn btn-sm btn-link-system cursor-pointer" for="file-upload">
-                  <span>Upload file</span>
+                  <span data-i18n="table.uploadFile">Upload file</span>
                   <i class="fa-solid fa-upload"></i>
                   <input id="file-upload" type="file" accept=".csv,.xlsx" hidden />
                 </label>
                 <button id="btn-new" class="btn btn-sm btn-primary">
-                  <span>Add</span>
+                  <span data-i18n="table.add">Add</span>
                   <i class="fa-solid fa-plus"></i>
                 </button>
               </div>
@@ -101,7 +106,7 @@
 
             <div id="s-filtros-aplicados" class="d-flex d-none flex-column gap-2">
               <div class="dropdown filter-dropdown">
-                <button id="filter-client-toggle" class="btn btn-link-system btn-sm dropdown-toggle" type="button" aria-expanded="false">
+                <button id="filter-client-toggle" class="btn btn-link-system btn-sm dropdown-toggle" type="button" aria-expanded="false" data-i18n="table.clientFilter">
                   Cliente
                 </button>
                 <div class="dropdown-menu shadow-sm p-3 dropdown-menu-client" id="filter-client-menu">
@@ -128,13 +133,13 @@
                 <table class="table table-timio mb-0">
                   <thead>
                     <tr>
-                      <th>Cliente</th>
-                      <th>Descripción</th>
-                      <th>Fecha</th>
-                      <th class="text-end">Horas</th>
-                      <th class="text-end">Tarifa</th>
-                      <th class="text-end">Total</th>
-                      <th class="text-end">Acciones</th>
+                      <th data-i18n="table.colClient">Cliente</th>
+                      <th data-i18n="table.colDescription">Descripción</th>
+                      <th data-i18n="table.colDate">Fecha</th>
+                      <th class="text-end" data-i18n="table.colHours">Horas</th>
+                      <th class="text-end" data-i18n="table.colRate">Tarifa</th>
+                      <th class="text-end" data-i18n="table.colTotal">Total</th>
+                      <th class="text-end" data-i18n="table.colActions">Acciones</th>
                     </tr>
                   </thead>
                   <tbody id="entries-body"></tbody>
@@ -146,11 +151,11 @@
             <div class="d-flex justify-content-end gap-4 align-items-center text-body-secondary fw-semibold">
               <button id="btn-copy" class="btn btn-sm btn-link-system" title="Copiar tabla">
                 <i class="fa-regular fa-copy"></i>
-                <span>Copy</span>
+                <span data-i18n="table.copy">Copy</span>
               </button>
               <button id="btn-export-csv" class="btn btn-sm btn-link-system" title="Exportar CSV">
                 <i class="fa-solid fa-file-arrow-down"></i>
-                <span>Download</span>
+                <span data-i18n="table.download">Download</span>
               </button>
             </div>
           </div>
@@ -160,8 +165,8 @@
           <div class="col-lg-6">
             <div class="card-soft bg-purple-subtle text-on-primary h-100">
               <div class="d-flex justify-content-between align-items-center mb-2">
-                <h5 class="mb-0 text-brand">Distribución por cliente</h5>
-                <small class="text-muted">Ingresos</small>
+                <h5 class="mb-0 text-brand" data-i18n="analytics.clientDist">Distribución por cliente</h5>
+                <small class="text-muted" data-i18n="analytics.incomeSubtitle">Ingresos</small>
               </div>
               <div id="pie-chart" class="d-flex justify-content-center align-items-center chart-container"></div>
               <div id="pie-legend" class="mt-3 small"></div>
@@ -170,10 +175,10 @@
           <div class="col-lg-6">
             <div class="card-soft bg-purple-subtle text-on-primary h-100">
               <div class="d-flex justify-content-between align-items-center mb-2">
-                <h5 class="mb-0 text-brand">Insights AI</h5>
-                <button id="btn-analyze" class="btn btn-success btn-sm"><i class="fa-solid fa-wand-magic-sparkles"> </i>Analizar con AI</button>
+                <h5 class="mb-0 text-brand" data-i18n="analytics.aiTitle">Insights AI</h5>
+                <button id="btn-analyze" class="btn btn-success btn-sm"><i class="fa-solid fa-wand-magic-sparkles"> </i><span data-i18n="analytics.aiBtn">Analizar con AI</span></button>
               </div>
-              <div id="ai-output" class="text-muted small">Sin análisis. Haz clic en "Analizar con AI".</div>
+              <div id="ai-output" class="text-muted small" data-i18n="analytics.aiEmpty">Sin análisis. Haz clic en "Analizar con AI".</div>
             </div>
           </div>
         </section>
@@ -185,34 +190,34 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 id="modal-title" class="modal-title">Nueva entrada</h5>
+            <h5 id="modal-title" class="modal-title" data-i18n="modal.newTitle">Nueva entrada</h5>
             <button type="button" class="btn-close" id="modal-close"></button>
           </div>
           <div class="modal-body">
             <form id="entry-form" class="row g-3">
               <div class="col-12">
-                <label class="form-label">Cliente</label>
-                <input id="form-client" type="text" class="form-control" required />
+                <label class="form-label" data-i18n="modal.labelClient">Cliente</label>
+                <input id="form-client" type="text" class="form-control" required data-i18n-placeholder="modal.placeholderClient" placeholder="Ej. Acme Corp" />
               </div>
               <div class="col-md-6">
-                <label class="form-label">Fecha</label>
+                <label class="form-label" data-i18n="modal.labelDate">Fecha</label>
                 <input id="form-date" type="date" class="form-control" required />
               </div>
               <div class="col-md-3">
-                <label class="form-label">Horas</label>
+                <label class="form-label" data-i18n="modal.labelHours">Horas</label>
                 <input id="form-hours" type="number" step="0.1" min="0" class="form-control" required />
               </div>
               <div class="col-md-3">
-                <label class="form-label">Tarifa/Hora</label>
+                <label class="form-label" data-i18n="modal.labelRate">Tarifa/Hora</label>
                 <input id="form-rate" type="number" step="1" min="0" class="form-control" required />
               </div>
               <div class="col-12">
-                <label class="form-label">Descripción</label>
-                <textarea id="form-description" class="form-control" rows="2"></textarea>
+                <label class="form-label" data-i18n="modal.labelDescription">Descripción</label>
+                <textarea id="form-description" class="form-control" rows="2" data-i18n-placeholder="modal.placeholderDescription" placeholder="Escribe una descripción del trabajo realizado..."></textarea>
               </div>
               <div class="col-12 text-end">
-                <button type="button" class="btn btn-link text-muted me-2" id="modal-cancel">Cancelar</button>
-                <button type="submit" class="btn btn-primary" id="modal-submit">Guardar</button>
+                <button type="button" class="btn btn-link text-muted me-2" id="modal-cancel" data-i18n="modal.btnCancel">Cancelar</button>
+                <button type="submit" class="btn btn-primary" id="modal-submit" data-i18n="modal.btnSave">Guardar</button>
               </div>
             </form>
           </div>

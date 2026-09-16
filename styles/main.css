@@ -12884,6 +12884,42 @@ body.modal-open-timio {
   font-weight: 700;
 }
 
+.lang-switcher-pill {
+  background: var(--color-surface-interface-card, #FFFFFF);
+  border: 1px solid var(--color-gray-400, #CBD5E1);
+  border-radius: 999px;
+  padding: 3px 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  gap: 2px;
+}
+.lang-switcher-pill .lang-globe-icon {
+  font-size: 0.8rem;
+  color: var(--color-text-gray, #64748B);
+  margin-left: 6px;
+  margin-right: 2px;
+}
+.lang-switcher-pill .btn-lang-item {
+  border: none;
+  background: transparent;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  color: var(--color-text-gray, #64748B);
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  line-height: 1.2;
+}
+.lang-switcher-pill .btn-lang-item:hover {
+  color: var(--color-text-primary-base, #0F172A);
+  background: rgba(147, 51, 234, 0.08);
+}
+.lang-switcher-pill .btn-lang-item.active {
+  background: var(--timio-primary, var(--color-surface-primary-default, #7C3AED));
+  color: #FFFFFF;
+  box-shadow: 0 1px 3px rgba(124, 58, 237, 0.3);
+}
+
 .btn {
   font-weight: 600;
   transition: all 0.18s ease;
