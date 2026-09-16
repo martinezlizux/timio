@@ -63,6 +63,15 @@ $danger: #ff5f5f;
   box-shadow: 0 30px 60px rgba(31, 26, 61, 0.15);
 }
 
+#entry-modal {
+  &:not(.show) {
+    display: none !important;
+  }
+  &.show {
+    display: block !important;
+  }
+}
+
 .empty-placeholder {
   display: flex;
   flex-direction: column;
