@@ -11,7 +11,7 @@ export const translations = {
       pill: 'Nuevo',
       title: 'Controla tus horas trabajadas con Timio',
       description: 'Registra, exporta y analiza tus proyectos en un solo lugar. Visualiza tus totales y obtén insights al instante.',
-      alt: 'Ilustración de persona sosteniendo un reloj',
+      alt: 'Monstruo de Timio',
     },
     stats: {
       hours: 'Total de horas',
@@ -88,7 +88,7 @@ export const translations = {
       pill: 'New',
       title: 'Track your worked hours with Timio',
       description: 'Log, export, and analyze your projects all in one place. View your totals and get insights instantly.',
-      alt: 'Illustration of a person holding a clock',
+      alt: 'Timio monster mascot',
     },
     stats: {
       hours: 'Total hours',

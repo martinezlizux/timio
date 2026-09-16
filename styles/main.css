@@ -12759,11 +12759,16 @@ small,
   }
 }
 .hero-illustration {
-  max-width: 420px;
+  max-width: 330px;
   width: 100%;
   height: auto;
-  aspect-ratio: 1/1;
+  object-fit: contain;
   display: inline-block;
+  filter: drop-shadow(0 16px 28px rgba(124, 58, 237, 0.12));
+  transition: transform 0.3s ease;
+}
+.hero-illustration:hover {
+  transform: translateY(-4px) scale(1.02);
 }
 
 .modal-backdrop-timio {
