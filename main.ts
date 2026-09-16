@@ -658,6 +658,7 @@ const openModal = (entry?: TimeEntry) => {
     formRate.value = '0';
     formDesc.value = '';
   }
+  modal.classList.remove('d-none');
   modal.style.display = 'block';
   modal.classList.add('show');
   const existingOverlay = document.getElementById('modal-overlay');
@@ -685,9 +686,15 @@ const closeModal = () => {
 const bindModal = () => {
   const modalClose = document.getElementById('modal-close');
   const modalCancel = document.getElementById('modal-cancel');
+  const modal = document.getElementById('entry-modal');
   const form = document.getElementById('entry-form') as HTMLFormElement | null;
   if (modalClose) modalClose.onclick = closeModal;
   if (modalCancel) modalCancel.onclick = closeModal;
+  if (modal) {
+    modal.onclick = (e) => {
+      if (e.target === modal) closeModal();
+    };
+  }
   if (form) {
     form.onsubmit = (e) => {
       e.preventDefault();
