@@ -12641,23 +12641,23 @@ small,
 
 .wrapper-ui {
   background-color: #fff;
-  padding: 36px 40px;
+  padding: 40px;
   border-radius: 20px;
 }
 @media (max-width: 768px) {
   .wrapper-ui {
-    padding: 16px 12px;
+    padding: 20px;
     border-radius: 16px;
   }
 }
 
 .box-section {
   border-radius: 20px;
-  padding: 36px 40px;
+  padding: 40px;
 }
 @media (max-width: 768px) {
   .box-section {
-    padding: 16px 12px;
+    padding: 20px;
     border-radius: 16px;
   }
 }
